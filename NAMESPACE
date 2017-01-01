@@ -1,0 +1,15 @@
+
+#functions
+
+exportPattern(KnowB)
+
+importFrom(stats, na.exclude, aggregate, nls, sd)
+
+importFrom(grDevices, dev.off, jpeg)
+
+importFrom(graphics, axis, image, mtext, pairs, par, plot, polygon, rect)
+
+importFrom(utils, read.csv, read.csv2, write.csv, write.csv2, write.table)
+
+
+
