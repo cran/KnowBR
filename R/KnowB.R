@@ -341,7 +341,7 @@ if(uio<=1){
 uio<-uio+1
 }
 else{
-if(uio>1){
+if(uio>=2){
 end.time<-Sys.time() 
 end.times <- format(end.time, "%b %d, %Y at %X")
 run.time<-difftime(end.time,begin.time,units="secs")
@@ -431,7 +431,7 @@ if(method=="abundance") cut<-5 else cut<-cut
 
 
 if(method=="abundance" & matrix==TRUE & dimy==0 & sum(as.numeric(datosx), na.rm=TRUE)>0
-& length(as.numeric(datosx))>1){
+& length(as.numeric(datosx))>=2){
 salA<-vegan::estimateR(as.numeric(datosx))
 
 if(is.na(salA[2])==FALSE){
