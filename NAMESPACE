@@ -1,15 +1,28 @@
 
 #functions
 
-exportPattern(KnowB)
+exportPattern(KnowB, KnowBPolygon, MapCell, MapPolygon)
 
-importFrom(stats, na.exclude, aggregate, nls, sd)
+importFrom(stats, na.exclude, aggregate, nls, sd, var)
 
-importFrom(grDevices, dev.off, jpeg)
+importFrom(grDevices, dev.off, jpeg, heat.colors, colorRampPalette)
 
 importFrom(graphics, axis, image, mtext, pairs, par, plot, polygon, rect)
 
-importFrom(utils, read.csv, read.csv2, write.csv, write.csv2, write.table)
+importFrom(utils, read.csv, read.csv2, write.csv, write.csv2, write.table, read.table)
+
+importFrom(vegan, estimateR, specpool, specaccum)
+
+importFrom(fossil, ICE)
+
+importFrom(plotrix, color.legend)
+
+importFrom(splancs, inpip)
+
+importFrom(sp, plot)
+
+
+
 
 
 
