@@ -94,11 +94,11 @@ values1<-data.frame(1,2,3,4,5,6,7,8,9,10)
 values2<-data.frame(1,2,3,4,5,6,7)
 
 if(estimator==0){
-values3<-data.frame(1,2,3,4,5,6,7,8,9,10)
+values3<-data.frame(1,2,3,4,5,6,7,8,9,10,11)
 sevalues3<-data.frame(1,2,3,4,5,6,7,8)
 }
 else{
-values3<-data.frame(1,2,3,4,5,6,7)
+values3<-data.frame(1,2,3,4,5,6,7,8)
 sevalues3<-data.frame(1,2,3,4,5,6)
 }
 
@@ -109,7 +109,7 @@ salA<-data.frame(c(2,5,6,1,0,6,5,8,7,4,9,8), nrow=4)
 sal<-data.frame(c(2,5,6,1,0,6,5,8,7,4,9,8), nrow=4)
 cu2<-NA;cu3<-NA;cu4<-NA;cu5<-NA
 sp2<-NA;sp3<-NA;sp4<-NA;sp5<-NA
-serandom<-NA;seexact<-NA;secoleman<-NA;serarefaction<-NA
+serandom<-NA;seexact<-NA;secoleman<-NA;serarefaction<-NA;R2exact<-NA;R2random<-NA
 
 
 if(format=="A"){
@@ -980,7 +980,8 @@ com<-NA
 if(!is.na(com) & com<cutoffCompleteness){
 com<-NA
 }
-temp4<-c(Longitude, Latitude, dimy[1],dimy[2],cu3,cu2,sp3,sp2,slope,com)
+ratio<-dimy[1]/dimy[2]
+temp4<-c(Longitude, Latitude, dimy[1],dimy[2],cu3,cu2,sp3,sp2,slope,com, ratio)
 cu2<-NA;cu3<-NA
 sp2<-NA;sp3<-NA
 values3<-rbind(values3,temp4)
@@ -997,7 +998,8 @@ com<-NA
 if(!is.na(slope) & slope>cutoffSlope){
 com<-NA
 }
-temp4<-c(Longitude, Latitude, dimy[1],dimy[2],cu3,sp3,com)
+ratio<-dimy[1]/dimy[2]
+temp4<-c(Longitude, Latitude, dimy[1],dimy[2],cu3,sp3,com, ratio)
 cu2<-NA;cu3<-NA
 sp2<-NA;sp3<-NA
 values3<-rbind(values3,temp4)
@@ -1014,7 +1016,8 @@ com<-NA
 if(!is.na(com) & com<cutoffCompleteness){
 com<-NA
 }
-temp4<-c(Longitude, Latitude, dimy[1],dimy[2],cu2,sp2,com)
+ratio<-dimy[1]/dimy[2]
+temp4<-c(Longitude, Latitude, dimy[1],dimy[2],cu2,sp2,com, ratio)
 cu2<-NA;cu3<-NA
 sp2<-NA;sp3<-NA
 values3<-rbind(values3,temp4)
@@ -1090,18 +1093,18 @@ values<-values3[-1,]
 sevalues<-sevalues3[-1,]
 
 if(estimator==0){
-colnames(values)<-c("Longitude", "Latitude", "Records","Observed.richness", "Richness.exact", "Richness.random", "Slope.exact", "Slope.random", "Mean.slope", "Completeness")
-colnames(sevalues)<-c("Longitude", "Latitude", "Records","Observed.richenss", "seexact", "serandom","R2.exact","R2.random")
+colnames(values)<-c("Longitude", "Latitude", "Records","Observed.richness", "Richness.exact", "Richness.random", "Slope.exact", "Slope.random", "Mean.slope", "Completeness", "Ratio")
+colnames(sevalues)<-c("Longitude", "Latitude", "Records","Observed.richenss", "SE.exact", "SE.random","R2.exact","R2.random")
 }
 
 if(estimator==1){
-colnames(values)<-c("Longitude", "Latitude", "Records","Observed.richness","Richness.exact", "Slope.exact","Completeness")
-colnames(sevalues)<-c("Longitude", "Latitude", "Records","Observed.richness","seexact","R2.exact")
+colnames(values)<-c("Longitude", "Latitude", "Records","Observed.richness","Richness", "Slope","Completeness","Ratio")
+colnames(sevalues)<-c("Longitude", "Latitude", "Records","Observed.richness","SE","R2")
 }
 
 if(estimator==2){
-colnames(values)<-c("Longitude", "Latitude", "Records","Observed.richness","Richness.random", "Completeness")
-colnames(sevalues)<-c("Longitude", "Latitude", "Records","Observed.richness","serandom","R2.random")
+colnames(values)<-c("Longitude", "Latitude", "Records","Observed.richness","Richness", "Slope", "Completeness","Ratio")
+colnames(sevalues)<-c("Longitude", "Latitude", "Records","Observed.richness","SE","R2")
 }
 
 

@@ -13,10 +13,10 @@ cex.legend=0.9, family="sans", font.main=2, font.lab=1, font.axis=1,
 lwdP=0.6, lwdC=0.1, trans=c(1,1), log=c(0,0), ndigits=0, ini=NULL,
 end=NULL, jpg=FALSE, filejpg="Map.jpg")}
 \arguments{
-  \item{data}{Data file exported by the function \link[KnowBR]{KnowBPolygon} named "Estimators" with the values of records, oberved richness, predicted richness, completeness and slope for each area polygon.}
+  \item{data}{Data file exported by the function \link[KnowBR]{KnowBPolygon} named "Estimators" with the values of records, observed richness, predicted richness, completeness and slope for each area polygon.}
   \item{polygonname}{A variable available in the data file with the names of the polygons.}
   \item{var}{A variable available in the data file with the values to be used for shading the polygons.}
-  \item{shape}{If the estimators in the function link[KnowBR]{KnowBPolygon} were calculated using a external shape file, it is necessary to indicate the file in this argument. It is not necessary to select any polygon within the file, just to load the whole shape file.}
+  \item{shape}{If the estimators in the function link[KnowBR]{KnowBPolygon} were calculated using an external shape file, it is necessary to indicate the file in this argument. It is not necessary to select any polygon within the file, just to load the whole shape file.}
   \item{shapenames}{Variable in the shapefile with the names of the polygons.}
   \item{admAreas}{If it is TRUE the border lines of the countries are depicted in the map.}
   \item{Area}{Only if using RWizard (\url{http://www.ipez.es/RWizard}). A character with the name of the administrative area or a vector with several administrative areas (countries, regions, etc.) or river basins. If it is "World" (default) the entire world is plotted. For using administrative areas or river basins, in addition to use RWizard, it is also necessary to replace data(world) by @_Build_AdWorld_ (see examples).}
@@ -81,7 +81,7 @@ Lemon, J., Bolker, B., Oom, S., Klein, E., Rowlingson, B., Wickham, H., Tyagi, A
 \dontrun{
 
 data(Estimators)
-@_Build_AdWorld_
+data(adworld)
 MapPolygon(data=Estimators, polygonname="Area", var="Completeness", jpg=TRUE)
 
 }

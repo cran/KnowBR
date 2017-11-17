@@ -2,7 +2,7 @@
 \docType{data}
 \alias{Estimators}
 \encoding{latin1}
-\title{Estimators obtained with the function KnowShape}
+\title{Estimators obtained with the function KnowBPolygon}
 \usage{data(Estimators)}
 \description{Estimators obtained with the function \link[KnowBR]{KnowBPolygon} using species of freshwater fish species in all the countries of the world (Guisande et al., 2010).} 
 \source{\url{http://www.ipez.es}.}

@@ -67,8 +67,8 @@ stop("It is necessary to specify in the argment 'shapenames' the variable with t
 
 ####End Checking
 
-values1<-data.frame(1,2,3,4,5,6,7,8,9,10)
-values2<-data.frame(1,2,3,4,5,6,7)
+values1<-data.frame(1,2,3,4,5,6,7,8,9,10,11)
+values2<-data.frame(1,2,3,4,5,6,7,8)
 values3<-data.frame(1,2,3,4,5,6,7,8,9,10,11,12,13)
 sevalues1<-data.frame(1,2,3,4,5,6,7)
 sevalues2<-data.frame(1,2,3,4,5,6)
@@ -176,6 +176,8 @@ datos3<-aggregate(x[,4],by=list(x[,1]),mean)
 datos3<-datos3[order(datos3[,1]), ]
 d3<-dim(datos3)
 
+texto<-paste(file3,".TXT", sep="")
+
 for (t in 1:d3[1]){
 sele<-subset(temp,temp[,1] %in% datos3[t,1])
 dimsele<-dim(sele)
@@ -185,10 +187,10 @@ matr1[,2]<-sele[,3]
 matr1[,t+2]<-1
 if(t==1){
 colnames(matr1)<-c("Longitude","Latitude",pp2[1,])
-write.table(matr1,"Species per record.txt", row.names=FALSE)
+write.table(matr1,texto, row.names=FALSE)
 }
 else{
-write.table(matr1,"Species per record.txt", row.names=FALSE, col.names=FALSE, append=TRUE)
+write.table(matr1,texto, row.names=FALSE, col.names=FALSE, append=TRUE)
 }
 }
 rm(datos3)
@@ -336,7 +338,7 @@ tableR<-data
 }
 
 if(format=="A"){
-tableR<-read.table("Species per record.TXT", header=TRUE)
+tableR<-read.table(texto, header=TRUE)
 }
 
 if(format=="B"){
@@ -392,22 +394,29 @@ uio<-1
 pvalor<-1
 suma<-1
 sumas<-1
+
 ZZ<-matrix(rep("",8),nrow=4) 
 
 for(z in 1:numero){
 
 
 if(is.null(shape)){
-pp<-na.exclude(as.data.frame(out[z]))
+pp<-as.data.frame(out[z])
 }
 else{
-pp<-na.exclude(as.data.frame(data@polygons[[z]]@Polygons[[1]]@coords))
+pp<-as.data.frame(data@polygons[[z]]@Polygons[[1]]@coords)
 }
-log<-splancs::inpip(tableR[, c(1,2)], pp)
-if(length(log)>0){
-mm<-tableR[log,c(-1,-2)]
-mm<-mm[, apply(mm, 2, sum)!=0]
 
+log<-mgcv::in.out(as.matrix(pp),as.matrix(tableR[, c(1,2)]))
+
+if(any(log==TRUE)==TRUE){
+mm<-cbind(tableR,log)
+
+dhh<-dim(mm)
+mm<-mm[mm[,dhh[2]],]
+
+mm<-mm[,c(-1,-2,-dhh[2])]
+mm<-mm[, apply(mm, 2, sum)!=0]
 
 if(class(mm)=="integer"){
 dimtt<-length(mm)
@@ -822,15 +831,16 @@ slope<-NA
 
 
 
-
-estimators<-data.frame(Areas[z],records, dimy[2], cu3,cu2,sp3,sp2,slope,com)
+ratio<-records/dimy[2]
+estimators<-data.frame(Areas[z],records, dimy[2], cu3,cu2,sp3,sp2,slope,com, ratio)
 seestimators<-data.frame(Areas[z],records, dimy[2],seexact, serandom,R2exact,R2random)
 }
 else{
-estimators<-data.frame(Areas[z],records, dimy[2], NA,NA,NA,NA,NA,NA)
+ratio<-records/dimy[2]
+estimators<-data.frame(Areas[z],records, dimy[2], NA,NA,NA,NA,NA,NA,ratio)
 seestimators<-data.frame(Areas[z],records, dimy[2],NA, NA,NA,NA)
 }
-colnames(estimators)<-c("Area","Records","Observed.richness", "Richness.exact", "Richness.random","Slope.exact", "Slope.random", "Mean.slope", "Completeness")
+colnames(estimators)<-c("Area","Records","Observed.richness", "Richness.exact", "Richness.random","Slope.exact", "Slope.random", "Mean.slope", "Completeness", "Ratio")
 colnames(seestimators)<-c("Area","Records","Observed.richness","SE.exact", "SE.random","R2.exact","R2.random")
 if(pppp==1){
 finales<-estimators
@@ -860,16 +870,17 @@ if(is.na(cu3)){
 sp3<-NA
 }
 
-
-estimators<-data.frame(Areas[z],records, dimy[2], cu3,sp3,com)
+ratio<-records/dimy[2]
+estimators<-data.frame(Areas[z],records, dimy[2], cu3,sp3,com,ratio)
 seestimators<-data.frame(Areas[z],records, dimy[2], seexact,R2exact)
 }
 else{
-estimators<-data.frame(Areas[z],records, dimy[2], NA,NA,NA)
+ratio<-records/dimy[2]
+estimators<-data.frame(Areas[z],records, dimy[2], NA,NA,NA,ratio)
 seestimators<-data.frame(Areas[z],records, dimy[2],NA,NA)
 }
-colnames(estimators)<-c("Area","Records","Observed.richness", "Richness.exact","Slope.exact", "Completeness")
-colnames(seestimators)<-c("Area","Records","Observed.richness","SE.exact","R2.exact")
+colnames(estimators)<-c("Area","Records","Observed.richness", "Richness","Slope", "Completeness","Ratio")
+colnames(seestimators)<-c("Area","Records","Observed.richness","SE","R2")
 if(pppp==1){
 finales<-estimators
 finalsees<-seestimators
@@ -895,16 +906,17 @@ if(is.na(cu2)){
 sp2<-NA
 }
 
-
-estimators<-data.frame(Areas[z],records, dimy[2], cu2,sp2,com)
+ratio<-records/dimy[2]
+estimators<-data.frame(Areas[z],records, dimy[2], cu2,sp2,com,ratio)
 seestimators<-data.frame(Areas[z],records, dimy[2], serandom,R2random)
 }
 else{
-estimators<-data.frame(Areas[z],records, dimy[2], NA,NA,NA)
+ratio<-records/dimy[2]
+estimators<-data.frame(Areas[z],records, dimy[2], NA,NA,NA,ratio)
 seestimators<-data.frame(Areas[z],records, dimy[2],NA,NA)
 }
-colnames(estimators)<-c("Area","Records","Observed.richness", "Richness.random","Slope.random", "Completeness")
-colnames(seestimators)<-c("Area","Records","Observed.richness","SE.random","R2.random")
+colnames(estimators)<-c("Area","Records","Observed.richness", "Richness","Slope", "Completeness","Ratio")
+colnames(seestimators)<-c("Area","Records","Observed.richness","SE","R2")
 if(pppp==1){
 finales<-estimators
 finalsees<-seestimators
@@ -1012,6 +1024,7 @@ datos1<-na.exclude(datos1)
 dimes<-dim(estimators)
 
 
+
 for(gg in 1:graphics){
 
 if(gg==1){
@@ -1057,12 +1070,12 @@ ZZ[2,2]<-main2
 if(gg==3){
 filejpg<-jpg3
 main<-main3
-tt<-dimes[2]
+tt<-dimes[2]-2
 AreasS<-as.character(unique(estimators[,1]))
 if(!is.null(shape)){
 data<-eval(parse(text=paste("subset(datos,",noquote(shapenames), " %in% AreasS)", sep="")))
 }
-var<-estimators[,tt]
+var<-estimators[,"Completeness"]
 
 ZZ[1,1]<-end.times
 ZZ[2,1]<-"Printing plot"
@@ -1072,9 +1085,9 @@ ZZ[2,2]<-main3
 if(gg==4){
 filejpg<-jpg4
 main<-main4
-tt<-dimes[2]-1
+tt<-dimes[2]-3
 AreasS<-as.character(unique(estimators[,1]))
-var<-estimators[,tt]
+if(estimator==1 | estimator==2) var<-estimators[,"Slope"] else var<-estimators[,"Mean.slope"]
 
 ZZ[1,1]<-end.times
 ZZ[2,1]<-"Printing plot"
@@ -1400,4 +1413,12 @@ rm(values1)
 rm(values2)
 rm(values3)
 rm(temp)
+remove(tableR)
+remove(datos)
+remove(out)
+remove(datos1)
+remove(pp)
+remove(dataP)
+remove(log)
+remove(cu)
 }
