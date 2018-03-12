@@ -1,5 +1,5 @@
 MapPolygon<-function(data, polygonname, var,  shape=NULL, shapenames=NULL, admAreas=TRUE, Area="World", minLon, maxLon, minLat, maxLat, int=30,  colbg="#FFFFFF",
-colcon="#C8C8C8", colf="black", pro = TRUE, inc = 0.005, exclude = NULL, colexc = NULL, colfexc="black", colscale=rev(heat.colors(100)), legend.pos="y", breaks=10, xl=0,
+colcon="#C8C8C8", colf="black", pro = TRUE, inc = 0.005, exclude = NULL, colexc = NULL, colfexc="black", colscale=rev(heat.colors(100)), colm="black", legend.pos="y", breaks=10, xl=0,
 xr=0, yb=0, yt=0,  asp, lab = NULL,  xlab = "Longitude", ylab = "Latitude", main=NULL,
 cex.main = 1.6,  cex.lab = 1.4, cex.axis = 1.2, cex.legend=0.9, family = "sans", font.main = 2,   font.lab = 1, font.axis = 1, lwdP=0.6, lwdC=0.1, trans=c(1,1), log=c(0,0),
 ndigits=0, ini=NULL, end=NULL,   jpg=FALSE, filejpg="Map.jpg"){
@@ -23,32 +23,8 @@ xr=188
 }
 }
 
-
-if(admAreas==TRUE){
-
-#####Checking data required
-if(exists("adworld")==FALSE){
-adworld<-1
-stop("It is necessary to load data(adworld)")
-}
-
-if(Area!="World" & exists("adworld1")==FALSE){
-stop("It is necessary to use RWizard and replace data(adworld) by @_Build_AdWorld_, for using administative areas")
-}
-
-if(Area!="World" & exists("adworld2")==FALSE){
-stop("It is necessary to use RWizard and replace data(adworld) by @_Build_AdWorld_, for using administative areas")
-}
-
-if(exists("adworld1")==FALSE){
-adworld1<-1
-}
-
-if(exists("adworld2")==FALSE){
-adworld2<-1
-}
-
-####Checking
+d<-length(Area)
+AA<-Area[1]
 
 ########### function written by Greg Snow
 squishplot <- function(xlim,ylim,asp=1){
@@ -97,9 +73,34 @@ squishplot <- function(xlim,ylim,asp=1){
 
 
 
+if(admAreas==TRUE){
 
-d<-length(Area)
-AA<-Area[1]
+#####Checking data required
+if(exists("adworld")==FALSE){
+adworld<-1
+stop("It is necessary to load data(adworld)")
+}
+
+if(Area!="World" & exists("adworld1")==FALSE){
+stop("It is necessary to use RWizard and replace data(adworld) by @_Build_AdWorld_, for using administative areas")
+}
+
+if(Area!="World" & exists("adworld2")==FALSE){
+stop("It is necessary to use RWizard and replace data(adworld) by @_Build_AdWorld_, for using administative areas")
+}
+
+if(exists("adworld1")==FALSE){
+adworld1<-1
+}
+
+if(exists("adworld2")==FALSE){
+adworld2<-1
+}
+
+
+####Checking
+
+
 if (AA=="World"){
 datos1<-adworld[2:5,]
 }
@@ -142,6 +143,7 @@ class<-cut(levels(variable)[variable], int)
 else{
 class<-cut(as.numeric(variable), int)
 }
+
 
 colors<-colors[class]
 
@@ -188,10 +190,6 @@ minLat<-minLat
 }
 
 
-
-
-
-
 legend.max=max(variable)
 
 legend.min=min(variable)
@@ -199,9 +197,6 @@ legend.min=min(variable)
 
 if(legend.min<0) legend.min<-legend.min+legend.min*0.1/100 else legend.min<-legend.min-legend.min*0.1/100
 if(legend.max<0) legend.max<-legend.max-legend.max*0.1/100 else legend.max<-legend.max+legend.max*0.1/100
-
-
-
 
 
 Lati<-(maxLat+minLat)/2
@@ -257,7 +252,9 @@ Areas<-as.character(datos[,1])
 
 leng<-length(Areas)
 rbPal <- colorRampPalette(colscale)
-colors<- rbPal(100)[as.numeric(cut(as.numeric(variable),breaks = 100))]
+if(!is.null(end)) vari<-append(variable,end) else vari<-variable
+if(!is.null(ini)) vari<-append(vari,ini) else vari<-variable
+colors<- rbPal(100)[as.numeric(cut(as.numeric(vari),breaks = 100))]
 for(kk in 1:leng){
 if(Area=="World") dataP<-subset(adworld, adworld[,3]==Areas[kk]) else dataP<-subset(adworld1, adworld1[,3]==Areas[kk])
 polygon(dataP$Lon,dataP$Lat,col=colors[kk], border=colf)
@@ -361,9 +358,10 @@ datos<-eval(parse(text=paste("subset(dati,",noquote(shapenames), " %in% hh)", se
 }
 else{
 datos<-shape
+if(class(datos)=="character"){
+datos<-eval(parse(text=paste(".GlobalEnv$", datos, sep="")))
 }
-
-
+}
 
 
 
@@ -399,7 +397,6 @@ colors<-colors[class]
 # Make the plot
 
 if (missing(inc)) inc=0.005 else inc=inc
-
 
 
 if (missing(maxLon)){
@@ -488,12 +485,18 @@ polygon(adworld2$Lon,adworld2$Lat,col=colexc, border=colfexc)
 }
 
 
+sp::plot(datos, col=colm, xlim=c(minLon,maxLon),ylim=c(minLat,maxLat), add=TRUE, bg="transparent")
 
-sp::plot(datos, col=colors, xlim=c(minLon,maxLon),ylim=c(minLat,maxLat), add=TRUE, bg="transparent")
+datos2<-eval(parse(text=paste("subset(datos,",noquote(shapenames), " %in% as.character(data[,polygonname]))", sep="")))
+
+rbPal <- colorRampPalette(colscale)
+if(!is.null(end)) vari<-append(variable,end) else vari<-variable
+if(!is.null(ini)) vari<-append(vari,ini) else vari<-variable
+colors<- rbPal(100)[as.numeric(cut(as.numeric(vari),breaks = 100))]
+
+sp::plot(datos2, col=colors, xlim=c(minLon,maxLon),ylim=c(minLat,maxLat), add=TRUE, bg="transparent")
 
 #Color legend
-
-
 
 if(!is.null(end)){
 legend.max<-end
@@ -531,9 +534,10 @@ if(!is.null(end)){
 lensequ<-length(sequ)
 sequ[lensequ]<-codlegend
 }
-
+if(length(colscale)>1){
 plotrix::color.legend(xl=x1, yb=minLat, xr= x2,
 yt=maxLat, sequ, gradient="y", align="rb", cex=cex.legend, rect.col=colscale[-1])
+}
 }
 else{
 if (yb==0){
@@ -563,9 +567,10 @@ if(!is.null(end)){
 lensequ<-length(sequ)
 sequ[lensequ]<-codlegend
 }
-
+if(length(colscale)>1){
 plotrix::color.legend(xl=minLon, yb=y1, xr=maxLon, yt=y2, sequ,
 gradient="x", align="lt", cex=cex.legend, rect.col=colscale[-1])
+}
 }
 
 

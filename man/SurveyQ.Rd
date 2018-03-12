@@ -7,11 +7,11 @@
 SurveyQ(data, Longitude=NULL, Latitude=NULL, cell=60, Areas=NULL,
 variables=c("Slope","Completeness","Ratio"), completeness=c(50,90),
 slope=c(0.02,0.3), ratio=c(3,15), shape=NULL, shapenames=NULL, admAreas=TRUE,
-Area="World", minLon, maxLon, minLat, maxLat, PLOTP=NULL, PLOTB=NULL, POINTS=NULL,
-XLAB=NULL, YLAB=NULL, XLIM=NULL, YLIM=NULL, palette=c("blue","green","red"),
-COLOR=c("red","green","blue"), labels=TRUE, sizelabels=1, LEGENDP=NULL,
-LEGENDM=NULL, file="Polar coordinates.csv", na="NA", dec=",", row.names=FALSE,
-jpg=FALSE, filejpg="Map.jpg")
+Area="World", minLon, maxLon, minLat, maxLat, main=NULL, PLOTP=NULL,
+PLOTB=NULL, POINTS=NULL, XLAB=NULL, YLAB=NULL, XLIM=NULL, YLIM=NULL,
+palette=c("blue","green","red"), COLOR=c("red","green","blue"), colm="black",
+labels=TRUE, sizelabels=1, LEGENDP=NULL, LEGENDM=NULL, file="Polar coordinates.csv",
+na="NA", dec=",", row.names=FALSE, jpg=FALSE, filejpg="Map.jpg")
 }
 \arguments{
   \item{data}{Data file exported by the functions \link[KnowBR]{KnowBPolygon} or \link[KnowBR]{KnowB} named "Estimators" with the values of records, observed richness, predicted richness, completeness and slope for each area polygon.}
@@ -29,6 +29,7 @@ jpg=FALSE, filejpg="Map.jpg")
   \item{Area}{Only if using RWizard (\url{http://www.ipez.es/RWizard}). A character with the name of the administrative area or a vector with several administrative areas (countries, regions, etc.) or river basins. If it is "World" (default) the entire world is plotted. For using administrative areas or river basins, in addition to use RWizard, it is also necessary to replace data(world) by @_Build_AdWorld_ (see examples of function \link[KnowBR]{KnowBPolygon}).}
 \item{minLon, maxLon}{Optionally it is possible to define the minimum and maximum longitude.}
   \item{minLat, maxLat}{Optionally it is possible to define the minimum and maximum latitude.}
+  \item{main}{Main title of the map.}
   \item{PLOTP}{It allows to specify the characteristics of the function \link[graphics]{plot.default} of the polar coordinates plot.}
   \item{PLOTB}{It allows to specify the characteristics of the function \link[graphics]{plot.default} of the bubble chart.}
   \item{POINTS}{It allows to modify the points of the bubble chart with the function \link[graphics]{points}.}
@@ -38,6 +39,7 @@ jpg=FALSE, filejpg="Map.jpg")
   \item{YLIM}{Vector with the limits of the Y axis.}
   \item{palette}{The color gradient of the bubble chart may be one of these palettes: "heat.colors", "terrain.colors", "gray.colors", "topo.colors" or "cm.colors".}
   \item{COLOR}{It allows to modify the colors of the map and polar coordinates plot. It must be three colors.}
+  \item{colm}{Color of the polygons without information when using when using an external shape file.}
   \item{labels}{If it is FALSE, points are depicted instead of the labels of the polygons in the polar coordinates plot.}
   \item{sizelabels}{Text size of the labels of the polygons in the polar coordinates plot.}
   \item{LEGENDP}{It allows to modify the legend of the polar coordinates plot.}
@@ -74,7 +76,7 @@ Degrees to radians angle conversion is carried out assuming that 1 degree = pi/1
 \strong{EXAMPLES}
 Polar coordinates of the records of freshwater fish species in all countries of the world.
 \tabular{c}{
-\figure{F6}{options: width=5.5in}
+\figure{F6}{options: width=5.0in}
 }
 Quality survey of the records of freshwater fish species in all countries of the world.
 \tabular{c}{

@@ -1,9 +1,9 @@
 SurveyQ<-function(data, Longitude=NULL, Latitude=NULL, cell=60, Areas=NULL,
-variables = c("Slope","Completeness","Ratio"), completeness=c(50,90),
+variables = c("Slope","Completeness","Ratio"),  completeness=c(50,90),
 slope=c(0.02,0.3), ratio=c(3,15), shape=NULL, shapenames=NULL, admAreas=TRUE,
-Area="World", minLon, maxLon, minLat, maxLat, PLOTP=NULL,  PLOTB=NULL,
+Area="World", minLon, maxLon, minLat, maxLat, main=NULL, PLOTP=NULL,  PLOTB=NULL,
  POINTS=NULL,   XLAB=NULL, YLAB=NULL, XLIM=NULL, YLIM=NULL,
-palette=c("blue","green","red"), COLOR=c("red","green","blue"),  labels=TRUE,
+palette=c("blue","green","red"), COLOR=c("red","green","blue"),  colm="black", labels=TRUE,
 sizelabels=1, LEGENDP=NULL, LEGENDM=NULL, file="Polar coordinates.csv",
 na="NA", dec=",", row.names=FALSE, jpg=FALSE, filejpg="Map.jpg"){
 
@@ -810,13 +810,14 @@ datosL<-cbind(datosL,eti)
 names(datosL)<-c("Area","X","Y","Survey")
 ldata<-datosL
 
+if(dim[1]>0){
 if(labels==FALSE | !is.null(Longitude)) {
 points(x = datosL[,2] , y = datosL[,3], pch=16, col=COLOR[1],cex=sizelabels)
 }
 else{
 TE(datosL=datosL, dim=dim, COLOR=COLOR[1],sizelabels=sizelabels)
 }
-
+}
 
 ###Labels of poor surveyed areas
 datosL<-subset(datosT,datosT[,variables[1]]>slope[2] & datosT[,variables[2]]<completeness[1] & datosT[,variables[3]]<ratio[1])
@@ -827,11 +828,13 @@ eti<-rep("Poor",dim[1])
 datosP<-cbind(datosL,eti)
 names(datosP)<-c("Area","X","Y","Survey")
 
+if(dim[1]>0){
 if(labels==FALSE | !is.null(Longitude)) {
 points(x = datosP[,2] , y = datosP[,3], pch=16, col=COLOR[3],cex=sizelabels)
 }
 else{
 TE(datosL=datosP, dim=dim, COLOR=COLOR[3],sizelabels=sizelabels)
+}
 }
 
 ###Labels of fair surveyed areas
@@ -843,15 +846,17 @@ eti<-rep("Fair",dim[1])
 datosFF<-cbind(datosL,eti)
 names(datosFF)<-c("Area","X","Y","Survey")
 
-
+if(dim[1]>0){
 if(labels==FALSE | !is.null(Longitude)) {
 points(x = datosFF[,2] , y = datosFF[,3], pch=16, col=COLOR[2],cex=sizelabels)
 }
 else{
 TE(datosL=datosFF, dim=dim, COLOR=COLOR[2],sizelabels=sizelabels)
 }
+}
 
 ldata<-rbind(ldata,datosFF, datosP)
+
 
 #LEGEND
 if(!is.null(LEGENDP)){
@@ -879,14 +884,42 @@ if(any(catcol=="Fair")==TRUE) vp2="" else vp2=COLOR[2]
 if(any(catcol=="Poor")==TRUE) vp3="" else vp3=COLOR[3]
 COLORF<-COLOR[ COLOR %ni% c(vp1,vp2,vp3)]
 
+datosT<-ldata
+
+if(!is.null(shape)){
+
+if(class(shape)=="list"){
+data<-shape[[1]]
+lsh<-length(shape)
+if(lsh>1){
+ss<-seq(2,lsh)
+hh<-as.character(shape[ss])
+shapeT<-eval(parse(text=paste("subset(data,",noquote(shapenames), " %in% hh)", sep="")))
+}
+}
+else{
+shapeT<-shape
+if(class(shapeT)=="character"){
+shapeT<-eval(parse(text=paste(".GlobalEnv$", shapeT, sep="")))
+}
+}
+
+
+AreasT<-data.frame(eval(parse(text=paste("shapeT$",noquote(shapenames),sep=""))))
+names(AreasT)<-"Area"
+datosT<-merge(AreasT,ldata, sort=FALSE)
+
+}
+
 if(jpg==TRUE){
 jpeg(filename = filejpg, width = 8000, height = 4000, units = "px", pointsize = 14, quality = 1200, bg = "white", res = 600)
 }
 else{
 dev.new()
 }
-KnowBR::MapPolygon(data=ldata, polygonname="Area", Area=Area, var="Survey2", colscale=COLORF, jpg=FALSE, xl=500, xr=500, shape=shape, shapenames=shapenames,
-minLon=minLon, maxLon=maxLon,minLat=minLat, maxLat=maxLat, admAreas=admAreas)
+
+KnowBR::MapPolygon(data=datosT, polygonname="Area", Area=Area, var="Survey2", colscale=COLORF, jpg=FALSE, xl=500, xr=500, shape=shape, shapenames=shapenames,
+minLon=minLon, maxLon=maxLon,minLat=minLat, maxLat=maxLat, admAreas=admAreas, main=main, colm=colm)
 
 #LEGEND
 if(!is.null(LEGENDM)){
@@ -1001,7 +1034,6 @@ matriz[vy+1,vx+2]<-ldata[z,6]
 
 matriz <- matriz[ nrow(matriz):2, ]
 matriz<-rbind(col,matriz)
-
 adareas(data=matriz, Area=Area,  jpg=FALSE, minLon=minLon, maxLon=maxLon,minLat=minLat, maxLat=maxLat, colcon="transparent",
 xl=500, xr=500, colscale=append("transparent",COLORF))
 

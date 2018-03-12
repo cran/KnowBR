@@ -6,7 +6,7 @@ breaks=10, xl=0, xr=0, yb=0, yt=0, asp, lab = NULL, xlab = "Longitude", ylab = "
 main2="Observed richness", main3="Completeness", main4="Slope", cex.main = 1.6, cex.lab = 1.4, cex.axis = 1.2, cex.legend=0.9,
 family = "sans", font.main = 2, font.lab = 1, font.axis = 1, lwdP=0.6, lwdC=0.1, trans=c(1,1),
  ndigits=0,  save="CSV", file1 = "Species per site", file2 = "Estimators",
-file3 = "Species per record", file4 = "Standard error of the estimators", na = "NA", dec = ",", row.names = FALSE, Maps=TRUE,
+ file3 = "Standard error of the estimators", na = "NA", dec = ",", row.names = FALSE, Maps=TRUE,
 jpg=TRUE, jpg1="Records.jpg", jpg2="Observed richness.jpg",  jpg3="Completeness.jpg", jpg4="Slope.jpg",cex=1.5, pch=15,
 cex.labels=1.5, pchcol="red", ask=FALSE){
 
@@ -87,18 +87,10 @@ data[is.na(data)]<-0
 if(format=="A"){
 
 ZZ<-matrix(rep("",8),nrow=4) 
-end.time<-Sys.time() 
-end.times <- format(end.time, "%b %d, %Y at %X")
-ZZ[1,1]<-end.times
-ZZ[2,1]<-"Creating the file"
-ZZ[2,2]<-file3
-write.table(ZZ,"Inf.txt", row.names=FALSE,col.names=FALSE)
-
 
 x<-na.exclude(data)
 
 if(format=="B"){
-format<-"A"
 xLo<-x[,1]
 xLa<-x[,2]
 dimg<-dim(x[,c(-1,-2)])
@@ -116,7 +108,7 @@ x<-x[(x$Longitude!=0 & x$Latitude!=0),]
 
 
 if(format=="A"){
-if(method=="accumulation" | method=="incidence"){
+if(method=="accumulation"){
 b<-x[,4]
 x<-x[rep(1:nrow(x[,1:3]), b), ] 
 x[,4]<-1
@@ -147,6 +139,7 @@ dimpp1<-dim(pp1)
 elements<-dimtemp[1]*dimpp1[1]
 rm(pp1)
 
+
 elements[is.na(elements)]<-0
 
 if(elements>2000000000) elements<-0 else elements<-elements
@@ -159,46 +152,6 @@ datosac<-x
 datosf<-x
 
 
-if(largematrix=="B"){
-}
-else{
-pp1<-subset(temp[,c(1,2,3)], !duplicated(temp[,1]))
-
-pp1<-pp1[order(pp1[,1]), ]
-
-pp2<-t(pp1)
-
-coluSp<-dim(pp2)
-
-
-
-datos3<-aggregate(x[,4],by=list(x[,1]),mean)
-datos3<-datos3[order(datos3[,1]), ]
-d3<-dim(datos3)
-
-texto<-paste(file3,".TXT", sep="")
-
-for (t in 1:d3[1]){
-sele<-subset(temp,temp[,1] %in% datos3[t,1])
-dimsele<-dim(sele)
-matr1<-matrix(0, nrow=dimsele[1], ncol=coluSp[2]+2)
-matr1[,1]<-sele[,2]
-matr1[,2]<-sele[,3]
-matr1[,t+2]<-1
-if(t==1){
-colnames(matr1)<-c("Longitude","Latitude",pp2[1,])
-write.table(matr1,texto, row.names=FALSE)
-}
-else{
-write.table(matr1,texto, row.names=FALSE, col.names=FALSE, append=TRUE)
-}
-}
-rm(datos3)
-}
-
-
-
-
 }#Big Matrix
 
 
@@ -207,48 +160,30 @@ datosf<-with(dt1, table(dt1[,5],dt1[,1]))
 datosac<-with(temp, table(temp[,5],temp[,1]))
 }
 
-if(elements==0){
-}
-else{
+sums<-aggregate(datosf[,4],by=list(datosf[,1],datosf[,2],datosf[,3]),sum,na.rm=TRUE)
+names(sums)<-c("Species","Longitude","Latitude","Records")
 
 if(save=="RData"){
 
-file3<-paste(file3,".RData", sep="")
 file1<-paste(file1,".RData", sep="")
-save(datosf, file=file1)
-save(datosac, file=file3)
+save(sums, file=file1)
 
-load(file1)
-load(file3)
 }
 else{
 
-file3<-paste(file3,".CSV", sep="")
-file5<-paste(file5,".CSV", sep="")
+file1<-paste(file1,".CSV", sep="")
 
 if(dec=="."){
-write.csv(x=datosf, file = file3, row.names=row.names,na=na, fileEncoding = "")
-write.csv(x=datosac, file = file3, row.names=row.names,na=na, fileEncoding = "")
+write.csv(x=sums, file = file1, row.names=row.names,na=na, fileEncoding = "")
 }
 else{
-write.csv2(x=datosf, file = file3, row.names=row.names,na=na, fileEncoding = "")
-write.csv2(x=datosac, file = file5, row.names=row.names,na=na, fileEncoding = "")
+write.csv2(x=sums, file = file1, row.names=row.names,na=na, fileEncoding = "")
 }
-
-if(dec=="."){
-datosf<-read.csv(file3, header=T, check.names=FALSE)
-datosac<-read.csv(file5, header=T, check.names=FALSE)
-}
-else{
-datosf<-read.csv2(file3, header=T, check.names=FALSE)
-datosac<-read.csv2(file5, header=T, check.names=FALSE)
-}
-
 
 }
 
 
-}
+
 
 
 if(elements==0){
@@ -264,19 +199,12 @@ datosf<-datosf[order(datosf[,1], datosf[,2]), ]
 }
 
 
-
-
-
 datosf[is.na(datosf)]<-0
-
-
 
 species<-aggregate(x[,4],by=list(x[,1]),FUN=sum,na.rm=TRUE)
 species1<-aggregate(x[,4],by=list(x[,1]),FUN=mean,na.rm=TRUE)
 species<-cbind(species,species1[,2])
 colnames(species)<-c("Species","Sum", "Mean")
-
-
 
 }
 else{
@@ -298,39 +226,10 @@ if(elements==0){
 }
 else{
 
-if(save=="RData"){
-
-file3<-paste(file3,".RData", sep="")
-file5<-paste(file5,".RData", sep="")
-
-save(datosf, file=file3)
-save(datosac, file=file5)
-}
-
-
-else{
-
-file3<-paste(file3,".CSV", sep="")
-file5<-paste(file5,".CSV", sep="")
-
-if(dec=="."){
-write.csv(x=datosf, file = file3, row.names=row.names,na=na, fileEncoding = "")
-write.csv(x=datosac, file = file3, row.names=row.names,na=na, fileEncoding = "")
-}
-else{
-write.csv2(x=datosf, file = file3, row.names=row.names,na=na, fileEncoding = "")
-write.csv2(x=datosac, file = file5, row.names=row.names,na=na, fileEncoding = "")
-}
 
 }
-
-
-}
-
 
 rm(x)
-
-tableR<-as.matrix(matr1)
 
 }##End format
 else{
@@ -338,7 +237,7 @@ tableR<-data
 }
 
 if(format=="A"){
-tableR<-read.table(texto, header=TRUE)
+tableR<-data
 }
 
 if(format=="B"){
@@ -379,7 +278,12 @@ data<-eval(parse(text=paste("subset(data,",noquote(shapenames), " %in% hh)", sep
 }
 else{
 data<-shape
+if(class(data)=="character"){
+data<-eval(parse(text=paste(".GlobalEnv$", data, sep="")))
 }
+
+}
+
 
 numero<-length(data)
 Areas<-eval(parse(text=paste("data$",noquote(shapenames),sep="")))
@@ -387,7 +291,7 @@ Areas<-eval(parse(text=paste("data$",noquote(shapenames),sep="")))
 }
 
 
-if(method=="abundance") cut<-5 else cut<-cutoff
+cut<-cutoff
 
 leng1<-numero
 uio<-1
@@ -397,8 +301,29 @@ sumas<-1
 
 ZZ<-matrix(rep("",8),nrow=4) 
 
+rm(dt1)
+rm(datosf)
+rm(temp)
+rm(species1)
+rm(species)
+rm(div)
+rm(Records)
+rm(datosac)
+rm(datos2)
+rm(values1)
+rm(values2)
+rm(values3)
+rm(pp)
+rm(sums)
+
 for(z in 1:numero){
 
+end.time<-Sys.time() 
+end.times <- format(end.time, "%b %d, %Y at %X")
+ZZ[1,1]<-end.times
+ZZ[2,1]<-paste(z,"from", numero,"polygons")
+ZZ[2,2]<-""
+write.table(ZZ,"Inf.txt", row.names=FALSE,col.names=FALSE)
 
 if(is.null(shape)){
 pp<-as.data.frame(out[z])
@@ -407,12 +332,25 @@ else{
 pp<-as.data.frame(data@polygons[[z]]@Polygons[[1]]@coords)
 }
 
+
+if(format=="B"){
 log<-mgcv::in.out(as.matrix(pp),as.matrix(tableR[, c(1,2)]))
+}
+
+if(format=="A"){
+log<-mgcv::in.out(as.matrix(pp),as.matrix(tableR[, c(2,3)]))
+}
+
 
 if(any(log==TRUE)==TRUE){
-mm<-cbind(tableR,log)
 
+if(format=="B"){
+mm<-cbind(tableR,log)
 dhh<-dim(mm)
+tableR<-subset(mm,(mm[,dhh[2]] == FALSE))
+tableR<-tableR[,c(-dhh[2])]
+
+
 mm<-mm[mm[,dhh[2]],]
 
 mm<-mm[,c(-1,-2,-dhh[2])]
@@ -425,185 +363,52 @@ else{
 dimt<-dim(mm)
 dimtt<-dimt[1]
 }
-
-end.time<-Sys.time() 
-end.times <- format(end.time, "%b %d, %Y at %X")
-ZZ[1,1]<-end.times
-ZZ[2,1]<-paste(z,"from", numero,"polygons")
-ZZ[2,2]<-""
-write.table(ZZ,"Inf.txt", row.names=FALSE,col.names=FALSE)
-
-#####Method abundance
-if(method=="abundance"){
-val<-apply(X = mm, MARGIN = 2 , FUN = sum , na.rm=TRUE)
-
-salA<-vegan::estimateR(val)
-
-chao1<-salA[2]
-
-if(is.na(salA[2])==FALSE){
-if(salA[2]=="logical (0)") chao1<-NA else chao1<-salA[2]
 }
 
-ACE<-salA[4]
+if(format=="A"){
 
-if(is.na(salA[4])==FALSE){
-if(salA[4]=="logical (0)") ACE<-NA else ACE<-salA[4]
+mm<-cbind(tableR,log)
+dhh<-dim(mm)
+tableR<-subset(mm,(mm[,dhh[2]] == FALSE))
+tableR<-tableR[,c(-dhh[2])]
+
+mm<-mm[mm[,dhh[2]],]
+
+mm<-mm[,c(-dhh[2])]
+
+
+sp<-as.character(unique(mm[,1]))
+lsp<-length(sp)
+dco<-dim(mm)
+Lm<-mm[,2:3]
+
+for(as in 1:lsp){
+col<-rep(0,dco[1])
+r<-which(mm[,1]==sp[as])
+col[r]<-1
+Lm<-cbind(Lm,col)
 }
 
-Methods<-c(chao1,ACE)
+names(Lm)<-c("Longitude","Latitude",sp)
 
-chao1.se<-salA[3]
+mm<-Lm[,c(-1,-2)]
 
-if(is.na(salA[3])==FALSE){
-if(salA[3]=="logical (0)") chao1.se<-NA else chao1.se<-salA[3]
-}
-else{
-chao1.se<-NA
-}
-
-ACE.se<-salA[5]
-
-if(is.na(salA[5])==FALSE){
-if(salA[5]=="logical (0)") ACE.se<-NA else ACE.se<-salA[5]
+if(class(mm)=="integer"){
+dimtt<-length(mm)
 }
 else{
-ACE.se<-NA
-}
-
-Methods[Methods < 0] <- NA
-
-if (estimator==0){
-pred<-mean(Methods, na.rm=T)
-}
-else{
-pred<-mean(Methods[estimator], na.rm=T)
-}
-
-pred<-round(pred)
-
-com<-(salA[1]*100/pred)
-
-mm[mm>1]<-1
-
-
-residuals<-salA[1]-pred
-
-if(records/salA[1]>=cut){
-estimators<-data.frame(Areas[z],records, salA[1], chao1, ACE, pred, residuals, com)
-seestimators<-data.frame(Areas[z],records,salA[1],chao1.se,ACE.se)
-}
-else{
-estimators<-data.frame(Areas[z],records, salA[1], NA, NA, NA, NA, NA)
-seestimators<-data.frame(Areas[z],records,salA[1],NA,NA)
-}
-
-if(pppp==1){
-finales<-estimators
-finalsees<-seestimators
-pppp<-2
-}
-else{
-finales<-rbind(finales,estimators)
-finalsees<-rbind(finalsees,seestimators)
-}
-colnames(finales)<-c("Area","Records","Actual","Chao (unbiased variant)", "ACE","Predicted", "Residuals", "Completeness")
-colnames(finalsees)<-c("Area","Records","Actual","Chao.se", "ACE.se")
-
-
-
-}##End method abundance
-
-
-#####Method incidence
-
-if(method=="incidence"){
-
-sal<-vegan::specpool(mm)
-
-ICE<-fossil::ICE(as.matrix(mm), taxa.row=FALSE)
-
-sal$chao<-sal$chao
-if(is.na(sal$chao)==FALSE){
-if(sal$chao=="logical (0)") sal$chao<-NA else sal$chao<-sal$chao
-}
-
-sal$jack1<-sal$jack1
-if(is.na(sal$jack1)==FALSE){
-if(sal$jack1=="logical (0)") sal$jack1<-NA else sal$jack1<-sal$jack1
-}
-
-sal$jack2<-sal$jack2
-if(sal$jack2=="logical (0)") sal$jack2<-NA else sal$jack2<-sal$jack2
-
-sal$boot<-sal$boot
-if(is.na(sal$boot)==FALSE){
-if(sal$boot=="logical (0)") sal$boot<-NA else sal$boot<-sal$boot
-}
-
-sal$chao.se<-sal$chao.se
-if(is.na(sal$chao.se)==FALSE){
-if(sal$chao.se=="logical (0)") sal$chao.se<-NA else sal$chao.se<-sal$chao.se
-}
-
-sal$jack1.se<-sal$jack1.se
-if(is.na(sal$jack1.se)==FALSE){
-if(sal$jack1.se=="logical (0)") sal$jack1.se<-NA else sal$jack1.se<-sal$jack1.se
-}
-
-sal$boot.se<-sal$boot.se
-if(is.na(sal$boot.se)==FALSE){
-if(sal$boot.se=="logical (0)") sal$boot.se<-NA else sal$boot.se<-sal$boot.se
+dimt<-dim(mm)
+dimtt<-dimt[1]
 }
 
 
-Methods<-c(sal$chao,ICE[1],sal$jack1,sal$jack2,sal$boot)
-
-seMethods<-c(sal$chao.se,sal$jack1.se,sal$boot.se)
-
-Methods[Methods < 0] <- NA
-
-if (estimator==0){
-pred<-mean(Methods, na.rm=T)
-}
-else{
-pred<-mean(Methods[estimator], na.rm=T)
 }
 
-pred<-round(pred)
-
-com<-(sal$Species*100/pred)
-
-
-records<-sal$n
-
-residuals<-sal$Species-pred
-
-
-if(records/sal$Species>=cut){
-estimators<-data.frame(Areas[z],records, sal$Species, sal$chao,ICE[1],sal$jack1,sal$jack2,sal$boot, pred, residuals, com)
-seestimators<-data.frame(Areas[z],records,sal$Species,sal$chao.se,sal$jack1.se,sal$boot.se)
-}
-else{
-estimators<-data.frame(Areas[z],records, sal$Species, NA,NA,NA,NA,NA, NA, NA, NA)
-seestimators<-data.frame(Areas[z],records,sal$Species,NA,NA,NA)
-}
-
-if(pppp==1){
-finales<-estimators
-finalsees<-seestimators
-pppp<-2
-}
-else{
-finales<-rbind(finales,estimators)
-finalsees<-rbind(finalsees,seestimators)
-}
-colnames(finales)<-c("Area","Records","Observed richness","Chao", "ICE", "jackknife1", "jackknife2", "Bootstrap","Predicted", "Residuals", "Completeness")
-colnames(finalsees)<-c("Area","Records","Observed richnness","Chao.se", "jackknife1.se", "Bootstrap.se")
 
 
 
-}#End method incidence
+
+
 
 
 #####Method accumulation
@@ -928,12 +733,12 @@ finalsees<-rbind(finalsees,seestimators)
 }
 }
 
-
 }#End method accumulation
-
 
 }#End length log
 
+rm(log)
+rm(cu)
 
 }###End for z
 
@@ -958,24 +763,24 @@ seestimators<-finalsees
 if(save=="RData"){
 
 file2<-paste(file2,".RData", sep="")
-file4<-paste(file4,".RData", sep="")
+file3<-paste(file3,".RData", sep="")
 
 save(estimators, file=file2)
-save(seestimators, file=file4)
+save(seestimators, file=file3)
 }
 else{
 
 file2<-paste(file2,".CSV", sep="")
-file4<-paste(file4,".CSV", sep="")
+file3<-paste(file3,".CSV", sep="")
 
 
 if(dec=="."){
 write.csv(x=estimators, file = file2, row.names=row.names,na=na, fileEncoding = "")
-write.csv(x=seestimators, file = file4, row.names=row.names,na=na, fileEncoding = "")
+write.csv(x=seestimators, file = file3, row.names=row.names,na=na, fileEncoding = "")
 }
 else{
 write.csv2(x=estimators, file = file2, row.names=row.names,na=na, fileEncoding = "")
-write.csv2(x=seestimators, file = file4, row.names=row.names,na=na, fileEncoding = "")
+write.csv2(x=seestimators, file = file3, row.names=row.names,na=na, fileEncoding = "")
 }
 
 
@@ -1406,19 +1211,10 @@ ZZ[1,2]<-""
 ZZ[2,1]<-""
 ZZ[2,2]<-""
 write.table(ZZ,"Inf.txt", row.names=FALSE,col.names=FALSE)
-rm(datos2)
-rm(datosac)
-rm(datosf)
-rm(values1)
-rm(values2)
-rm(values3)
-rm(temp)
-remove(tableR)
-remove(datos)
-remove(out)
-remove(datos1)
-remove(pp)
-remove(dataP)
-remove(log)
-remove(cu)
+rm(tableR)
+rm(out)
+rm(dataP)
+rm(datos)
+rm(datos1)
+rm(data)
 }

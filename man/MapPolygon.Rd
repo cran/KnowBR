@@ -6,8 +6,8 @@
 MapPolygon(data, polygonname, var, shape=NULL, shapenames=NULL, admAreas=TRUE,
 Area="World", minLon, maxLon, minLat, maxLat, int=30, colbg="#FFFFFF",
 colcon="#C8C8C8", colf="black", pro=TRUE, inc=0.005, exclude=NULL,
-colexc=NULL, colfexc="black", colscale=rev(heat.colors(100)), legend.pos="y",
-breaks=10, xl=0, xr=0, yb=0, yt=0, asp, lab=NULL, xlab="Longitude",
+colexc=NULL, colfexc="black", colscale=rev(heat.colors(100)), colm="black",
+legend.pos="y", breaks=10, xl=0, xr=0, yb=0, yt=0, asp, lab=NULL, xlab="Longitude",
 ylab="Latitude", main=NULL, cex.main=1.6, cex.lab=1.4, cex.axis=1.2,
 cex.legend=0.9, family="sans", font.main=2, font.lab=1, font.axis=1,
 lwdP=0.6, lwdC=0.1, trans=c(1,1), log=c(0,0), ndigits=0, ini=NULL,
@@ -32,6 +32,7 @@ end=NULL, jpg=FALSE, filejpg="Map.jpg")}
   \item{colexc}{Background color of areas selected in the argument exclude.}
   \item{colfexc}{Color of borders of the areas selected in the argument exclude.}
   \item{colscale}{Palette color.}
+  \item{colm}{Color of the polygons without information when using when using an external shape file.}
   \item{legend.pos}{Whether to have a horizontal "x" or vertical "y" color scale.}
   \item{breaks}{Number of breakpoints of the color legend.}
   \item{xl,xr,yb,yt}{The lower left and upper right coordinates of the color legend in user coordinates.}
@@ -75,7 +76,7 @@ Completeness of the records of freshwater fish species in all countries of the w
 \references{
 Lemon, J. (2006) Plotrix: a package in the red light district of R. \emph{R-News}, 6(4):8-12.
 
-Lemon, J., Bolker, B., Oom, S., Klein, E., Rowlingson, B., Wickham, H., Tyagi, A., Eterradossi, O., Grothendieck, G., Toews, M., Kane, J., Turner, R., Witthoft, C., Stander, J., Petzoldt, T., Duursma, R., Biancotto, E., Levy, O., Dutang, C., Solymos, P., Engelmann, R., Hecker, M., Steinbeck, F., Borchers, H., Singmann, H., Toal, T. & Ogle, D. (2015). Various plotting functions. R package version 3.6-1. Available at: \url{https://CRAN.R-project.org/package=plotrix}.
+Lemon, J., Bolker, B., Oom, S., Klein, E., Rowlingson, B., Wickham, H., Tyagi, A., Eterradossi, O., Grothendieck, G., Toews, M., Kane, J., Turner, R., Witthoft, C., Stander, J., Petzoldt, T., Duursma, R., Biancotto, E., Levy, O., Dutang, C., Solymos, P., Engelmann, R., Hecker, M., Steinbeck, F., Borchers, H., Singmann, H., Toal, T. & Ogle, D. (2015). Various plotting functions. R package version 3.6-1. Available at: https://CRAN.R-project.org/package=plotrix.
 }
 \examples{
 \dontrun{

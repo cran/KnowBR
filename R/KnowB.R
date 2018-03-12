@@ -82,7 +82,7 @@ x<-x[(x$Longitude!=0 & x$Latitude!=0),]
 
 
 if(format=="A"){
-if(method=="accumulation" | method=="incidence"){
+if(method=="accumulation"){
 b<-x[,4]
 x<-x[rep(1:nrow(x[,1:3]), b), ] 
 x[,4]<-1
@@ -316,6 +316,8 @@ write.csv2(x=datosac, file = file5, row.names=row.names,na=na)
 
 }
 
+rm(datos2)
+
 
 
 f<-cell/60
@@ -334,8 +336,6 @@ a<-dim(matriz)
 
 options(warn=-1)
 matriz1<-matriz
-#matriz2<-matriz
-#matriz3<-matriz
 matriz4<-matriz
 matriz5<-matriz
 matriz6<-matriz
@@ -365,24 +365,21 @@ if(length(c2)==2) c2<-c2[2] else c2<-c2
 if(length(r1)==2) c1<-r1[2] else r1<-r1
 if(length(r2)==2) r2<-r2[2] else r2<-r2
 
-if(method=="abundance") datosf<-datosf else jkjllk<-0
-
 
 if(format=="A"){
-if(method=="incidence") datosf<-datosac else jkjllk<-0
-if(method=="accumulation") datosf<-datosac else jkjllk<-0
+if(method=="accumulation"){
+datosf<-datosac
+}
 }
 else{
-if(method=="incidence") datosf<-datosf else jkjllk<-0
 if(method=="accumulation"){
 datosa<-replace(datosf[,-c(1,2)], datosf[,-c(1,2)]>1,1)
 datosf<-cbind(datosf[,c(1,2)],datosa)
 }
-else{
-jkjllk<-0
-}
+
 }
 
+rm(datosac)
 
 
 ZZ<-matrix(c("","","",""), nrow=2)
@@ -430,13 +427,7 @@ for (h in seq(c1-f, c2+f, by = f)){
 if(format=="A"){
 if(elements==0){
 
-if(method=="abundance"){
-datosx<-dt1[(dt1[,2]>=col[h-f])&(dt1[,2]<col[h])&(dt1[,3]>=row[z+f])&(dt1[,3]<row[z]),]
-}
-else{
 datosx<-temp[(temp[,2]>=col[h-f])&(temp[,2]<col[h])&(temp[,3]>=row[z+f])&(temp[,3]<row[z]),]
-}
-
 
 dimx<-dim(datosx)
 
@@ -481,74 +472,12 @@ cut<-dimy[1]/dimy[2]
 }
 
 
-if(method=="abundance") cut<-5 else cut<-cut
-
-
-
-if(method=="abundance" & format=="A" & dimy==0 & sum(as.numeric(datosx), na.rm=TRUE)>0
-& length(as.numeric(datosx))>=2){
-salA<-vegan::estimateR(as.numeric(datosx))
-
-if(is.na(salA[2])==FALSE){
-if(salA[2]=="logical (0)") chao1<-NA else chao1<-salA[2]
-}
-
-if(is.na(salA[4])==FALSE){
-if(salA[4]=="logical (0)") ACE<-NA else ACE<-salA[4]
-}
-
-Methods<-c(chao1,ACE)
-
-if(is.na(salA[3])==FALSE){
-if(salA[3]=="logical (0)") chao1.se<-NA else chao1.se<-salA[3]
-}
-else{
-chao1.se<-NA
-}
-
-if(is.na(salA[5])==FALSE){
-if(salA[5]=="logical (0)") ACE.se<-NA else ACE.se<-salA[5]
-}
-else{
-ACE.se<-NA
-}
-
-seMethods<-c(chao1.se,ACE.se)
-
-Methods[Methods < 0] <- NA
-matriz1[z+2,h]<-dimy[2]
-matriz4[z+2,h]<-dimy[1]
-Lo1<-subset(datosL[,1], !duplicated(datosL[,1]))
-La1<-subset(datosL[,2], !duplicated(datosL[,2]))
-Longitude<-mean(Lo1)
-Latitude<-mean(La1)
-
-if (estimator==0){
-pred<-mean(Methods, na.rm=T)
-}
-else{
-pred<-mean(Methods[estimator], na.rm=T)
-}
-com<-(salA[1]*100/pred)
-
-temp4<-c(Longitude, Latitude, 1,salA[1], chao1, ACE, com)
-
-if(Longitude!=0 & Latitude!=0){
-values2<-rbind(values2,temp4)
-
-
-}
-
-}
-
-
-
 
 if(dimy[1]==0){
 hgh<-1
 }
 else{
-if(dimy==0) {
+if(dimy[2]==0) {
 matriz1[z+2,h]<-dimy[2]
 matriz4[z+2,h]<-dimy[1]
 Lo1<-subset(datosL[,1], !duplicated(datosL[,1]))
@@ -572,62 +501,9 @@ hgh<-1
 }
 else{
 if(dimy[1]==1){
-if(method=="abundance"){
-XX<-t(as.data.frame(colSums(datosx)))
-salA<-vegan::estimateR(XX)
-
-if(is.na(salA[2,1])==FALSE){
-if(salA[2, 1]=="logical (0)") chao1<-NA else chao1<-salA[2, 1]
-}
-
-if(is.na(salA[4,1])==FALSE){
-if(salA[4, 1]=="logical (0)") ACE<-NA else ACE<-salA[4, 1]
-}
-
-Methods<-c(chao1,ACE)
-
-if(is.na(salA[3,1])==FALSE){
-if(salA[3, 1]=="logical (0)") chao1.se<-NA else chao1.se<-salA[3, 1]
-}
-else{
-chao1.se<-NA
-}
-
-if(is.na(salA[5,1])==FALSE){
-if(salA[5, 1]=="logical (0)") ACE.se<-NA else ACE.se<-salA[5, 1]
-}
-else{
-ACE.se<-NA
-}
-
-seMethods<-c(chao1.se,ACE.se)
-
-Methods[Methods < 0] <- NA
-matriz1[z+2,h]<-dimy[2]
-matriz4[z+2,h]<-dimy[1]
-Lo1<-subset(datosL[,1], !duplicated(datosL[,1]))
-La1<-subset(datosL[,2], !duplicated(datosL[,2]))
-Longitude<-mean(Lo1)
-Latitude<-mean(La1)
-
-if (estimator==0){
-pred<-mean(Methods, na.rm=T)
-}
-else{
-pred<-mean(Methods[estimator], na.rm=T)
-}
-com<-(dimy[2]*100/pred)
-
-temp4<-c(Longitude, Latitude, dimy[1],dimy[2], chao1, ACE, com)
-values2<-rbind(values2,temp4)
 
 
 
-if(pred=="NaN") matriz5[z+2,h]<-(-9999) else matriz5[z+2,h]<-com
-}
-else{
-fgg<-1
-}
 matriz1[z+2,h]<-dimy[2]
 matriz4[z+2,h]<-dimy[1]
 Lo1<-subset(datosL[,1], !duplicated(datosL[,1]))
@@ -638,88 +514,6 @@ Latitude<-mean(La1)
 else{
 
 
-if(method=="incidence"){
-if(cut<cutoff){
-ICE<-NA
-sal$chao<-NA
-sal$jack1<-NA
-sal$jack2<-NA
-sal$boot<-NA
-sal$chao.se<-NA
-sal$jack1.se<-NA
-sal$boot.se<-NA 
-Methods<-c(NA,NA,NA,NA,NA)
-seMethods<-c(NA,NA,NA)
-}
-else{
-sal<-vegan::specpool(datosx)
-
-ICE<-fossil::ICE(as.matrix(datosx), taxa.row=FALSE)
-
-if(is.na(sal$chao)==FALSE){
-if(sal$chao=="logical (0)") sal$chao<-NA else sal$chao<-sal$chao
-}
-
-if(is.na(sal$jack1)==FALSE){
-if(sal$jack1=="logical (0)") sal$jack1<-NA else sal$jack1<-sal$jack1
-}
-
-if(sal$jack2=="logical (0)") sal$jack2<-NA else sal$jack2<-sal$jack2
-
-if(is.na(sal$boot)==FALSE){
-if(sal$boot=="logical (0)") sal$boot<-NA else sal$boot<-sal$boot
-}
-
-if(is.na(sal$chao.se)==FALSE){
-if(sal$chao.se=="logical (0)") sal$chao.se<-NA else sal$chao.se<-sal$chao.se
-}
-
-if(is.na(sal$jack1.se)==FALSE){
-if(sal$jack1.se=="logical (0)") sal$jack1.se<-NA else sal$jack1.se<-sal$jack1.se
-}
-
-if(is.na(sal$boot.se)==FALSE){
-if(sal$boot.se=="logical (0)") sal$boot.se<-NA else sal$boot.se<-sal$boot.se
-}
-
-
-Methods<-c(sal$chao,ICE[1],sal$jack1,sal$jack2,sal$boot)
-
-seMethods<-c(sal$chao.se,sal$jack1.se,sal$boot.se)
-}
-}
-else{
-fgg<-1
-}
-
-
-if(method=="abundance"){
-
-if(cut<cutoff){
-Methods<-c(NA,NA)
-}
-else{
-XX<-t(as.data.frame(colSums(datosx)))
-salA<-vegan::estimateR(XX)
-
-if(salA[2, 1]=="logical (0)") chao1<-NA else chao1<-salA[2, 1]
-if(salA[4, 1]=="logical (0)") ACE<-NA else ACE<-salA[4, 1]
-Methods<-c(chao1,ACE)
-
-if(is.na(salA[3,1])==FALSE){
-if(salA[3, 1]=="logical (0)") chao1.se<-NA else chao1.se<-salA[3, 1]
-}
-
-if(is.na(salA[5,1])==FALSE){
-if(salA[5, 1]=="logical (0)") ACE.se<-NA else ACE.se<-salA[5, 1]
-}
-
-seMethods<-c(chao1.se, ACE.se)
-}
-}
-else{
-fgg<-1
-}
 
 if(method=="accumulation"){
 if(cut<cutoff){
@@ -900,24 +694,6 @@ Methodssp[Methodssp < 0] <- NA
 
 Methods[Methods < 0] <- NA
 
-if(method=="abundance"){
-if(cut<cutoff){
-chao1<-NA
-ACE<-NA
-chao1.se<-NA
-ACE.se<-NA
-}
-else{
-chao1<-salA[2, 1]
-ACE<-salA[4, 1]
-chao1.se<-salA[3, 1]
-ACE.se<-salA[5, 1]
-}
-}
-else{
-chao1<-NA
-ACE<-NA
-}
 
 
 if(estimator==0){
@@ -948,26 +724,7 @@ La1<-subset(datosL[,2], !duplicated(datosL[,2]))
 Longitude<-mean(Lo1)
 Latitude<-mean(La1)
 
-if(method=="incidence"){
-temp4<-c(Longitude, Latitude, dimy[1],dimy[2], sal$chao,ICE[1], sal$jack1,sal$jack2,sal$boot,com)
-values1<-rbind(values1,temp4)
-setemp4<-c(Longitude, Latitude, dimy[1],dimy[2], sal$chao.se, sal$jack1.se,sal$boot.se)
-sevalues1<-rbind(sevalues1,setemp4)
-}
-else{
-wuo<-1
-}
 
-if(method=="abundance"){
-temp4<-c(Longitude, Latitude, dimy[1],dimy[2], chao1, ACE, com)
-values2<-rbind(values2,temp4)
-
-setemp4<-c(Longitude, Latitude, dimy[1],dimy[2], chao1.se, ACE.se)
-sevalues2<-rbind(sevalues2,setemp4)
-}
-else{
-wuo<-1
-}
 
 if(method=="accumulation"){
 
@@ -1044,12 +801,10 @@ if(method=="accumulation"){
 if(is.na(slope)) matriz6[z+2,h]<-(-9999) else matriz6[z+2,h]<-slope
 
 if(is.na(pred)){
-#matriz2[z+2,h]<-(-9999)
 }
 else{
-#matriz2[z+2,h]<-pred
+
 if(slope>cutoffSlope){
-#matriz2[z+2,h]<-(-9999)
 matriz6[z+2,h]<-(-9999)
 matriz5[z+2,h]<-(-9999)
 }
@@ -1069,24 +824,8 @@ matriz6[z+2,h]<-(-9999)
 }
 }
 
-if(method=="incidence"){
-values<-values1[-1,]
-sevalues<-sevalues1[-1,]
-colnames(values)<-c("Longitude", "Latitude", "Records", "Actual", "Chao", "ICE", "jackknife1",
-"jackknife2", "Bootstrap","Completeness")
-colnames(sevalues)<-c("Longitude", "Latitude", "Records", "Actual", "Chao.se", "jackknife1.se", "Bootstrap.se")
-}
-else{
-}
 
-if(method=="abundance"){
-values<-values2[-1,]
-sevalues<-sevalues2[-1,]
-colnames(values)<-c("Longitude", "Latitude","Records","Actual","Chao (unbiased variant)", "ACE","Completeness")
-colnames(sevalues)<-c("Longitude", "Latitude","Records","Actual","Chao.se", "ACE.se")
-}
-else{
-}
+
 
 if(method=="accumulation"){
 values<-values3[-1,]
@@ -1345,11 +1084,9 @@ firstrow<-varscale[1,]
 
 ajuste<-varscale[varscale[,1]<=maxLat&varscale[,1]>=minLat,]
 
-if(firstrow==ajuste[1,]){
-}
-else{
-ajuste<-rbind(firstrow,ajuste)
-}
+
+ifelse(firstrow==ajuste[1,], jj<-1, ajuste<-rbind(firstrow,ajuste))
+
 
 ajuste<-ajuste[,ajuste[1,]<=maxLon&ajuste[1,]>=minLon]
 
@@ -1490,8 +1227,8 @@ squishplot <- function(xlim,ylim,asp=1){
   }
 
   return(invisible(tmp['plt']))
-} # end of function
-###################
+} ####end of function
+
 
 
 if(min(varscale[!varscale==-9999])==0) iniF<-(-0.00001) else iniF<-legend.min
@@ -1660,15 +1397,11 @@ ZZ[1,2]<-""
 ZZ[2,1]<-""
 ZZ[2,2]<-""
 write.table(ZZ,"Inf.txt", row.names=FALSE,col.names=FALSE)
-rm(datos2)
-rm(datosac)
 rm(datosf)
 rm(datosL)
 rm(datosx)
 rm(matriz)
 rm(matriz1)
-#rm(matriz2)
-#rm(matriz3)
 rm(matriz4)
 rm(matriz5)
 rm(matriz6)
