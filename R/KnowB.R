@@ -17,12 +17,8 @@ cex.labels=1.5, pchcol="red", ask=FALSE){
 
 
 method<-"accumulation"
-
+options(digits=15,warn=-1)
 SpR<-FALSE
-
-
-
-options(warn=-1)
 
 if(jpg==FALSE) par(ask=ask) else yuret<-1
 
@@ -320,8 +316,7 @@ rm(datos2)
 
 
 
-f<-cell/60
-f<-round(f,digits=18)
+f<-round(cell/60,digits=10)
 ff<-180/f
 cc<-ff*2
 matriz<-matrix(-9999, nrow=ff, ncol=cc+1)

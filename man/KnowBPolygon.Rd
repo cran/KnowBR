@@ -143,17 +143,23 @@ Soberón, J. & Llorente, B.J. 1993. The use of species accumulation functions for
 
 data(Beetles)
 @_Build_AdWorld_
-KnowBPolygon(data=Beetles, Area = c("Almería", "Cádiz", "Europe>Córdoba", "Europe>Granada",
-"Huelva", "Jaén", "Málaga", "Sevilla", "Huesca", "Teruel", "Zaragoza",
-"Europe>Spain>by Autonomous community>Cantabria>Cantabria", "Ávila", "Burgos",
-"Europe>León", "Palencia", "Salamanca", "Segovia", "Soria", "Valladolid", "Zamora",
-"Albacete", "Ciudad Real", "Cuenca", "Guadalajara", "Europe>Toledo", "Barcelona",
-"Girona", "Lleida", "Tarragona", "Europe>Spain>by Autonomous community>Ceuta>Ceuta",
-"Madrid", "Navarra", "Alicante", "Castellón", "Valencia", "Badajoz", "Cáceres",
-"A Coruña", "Lugo", "Ourense", "Pontevedra", "Baleares",
-"Europe>Spain>by Autonomous community>La Rioja>La Rioja",
-"Europe>Spain>by Autonomous community>Melilla>Melilla", "Álava", "Guipúzcoa", "Vizcaya",
-"Asturias", "Murcia"), minLon=-10, minLat=35, admAreas = TRUE, jpg=FALSE)
+KnowBPolygon(data = Beetles , Area = c("Andalucía>Almería", "Andalucía>Cádiz",
+"Andalucía>Córdoba", "Andalucía>Granada", "Andalucía>Huelva", "Andalucía>Jaén",
+"Andalucía>Málaga", "Andalucía>Sevilla", "Aragón>Huesca", "Aragón>Teruel",
+"Aragón>Zaragoza", "Cantabria>Cantabria", "Castilla y León>Ávila", "Castilla y León>Burgos",
+"Castilla y León>León", "Castilla y León>Palencia", "Castilla y León>Salamanca",
+"Castilla y León>Segovia", "Castilla y León>Soria", "Castilla y León>Valladolid",
+"Castilla y León>Zamora", "Castilla-La Mancha>Albacete", "Castilla-La Mancha>Ciudad Real",
+"Castilla-La Mancha>Cuenca", "Castilla-La Mancha>Guadalajara", "Castilla-La Mancha>Toledo",
+"Cataluña>Barcelona", "Cataluña>Girona", "Cataluña>Lleida", "Cataluña>Tarragona",
+"Ceuta>Ceuta", "Comunidad de Madrid>Madrid", "Comunidad Foral de Navarra>Navarra",
+"Comunidad Valenciana>Alicante", "Comunidad Valenciana>Castellón",
+"Comunidad Valenciana>Valencia", "Extremadura>Badajoz", "Extremadura>Cáceres",
+"Galicia>A Coruña", "Galicia>Lugo", "Galicia>Ourense", "Galicia>Pontevedra",
+"Islas Baleares>Baleares", "Islas Canarias>Las Palmas", "Islas Canarias>Santa Cruz de Tenerife",
+"La Rioja>La Rioja", "Melilla>Melilla", "País Vasco>Álava", "País Vasco>Guipúzcoa",
+"País Vasco>Vizcaya", "Principado de Asturias>Asturias", "Región de Murcia>Murcia") ,
+minLon = -10 , minLat = 35 , admAreas = TRUE , jpg = FALSE)
 
 #Example 2.
 
