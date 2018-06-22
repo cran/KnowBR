@@ -2,8 +2,8 @@ KnowB<-function(data, format="A", cell=60,  curve= "Rational", estimator=1,
 cutoff=1, cutoffCompleteness= 0, cutoffSlope= 1, largematrix=FALSE,
  Area="World", extent=TRUE, minLon, maxLon, minLat, maxLat,
 colbg="transparent", colcon="transparent", colf="black", pro = TRUE, inc = 0.005, exclude = NULL,
-colexc = NULL, colfexc="black", colscale=rev(heat.colors(100)), legend.pos="y",
-breaks=10, xl=0, xr=0, yb=0, yt=0, asp, lab = NULL, xlab = "Longitude", ylab = "Latitude",
+colexc = NULL, colfexc="black", colscale=c("#C8FFFFFF","#64FFFFFF","#00FFFFFF","#64FF64FF","#C8FF00FF","#FFFF00FF","#FFC800FF","#FF6400FF","#FF0000FF"),
+legend.pos="y", breaks=9, xl=0, xr=0, yb=0, yt=0, asp, lab = NULL, xlab = "Longitude", ylab = "Latitude",
 main1="Observed richness", main2="Records",
 main3="Completeness", main4="Slope", cex.main = 1.6, cex.lab = 1.4, cex.axis = 1.2, cex.legend=1.2, family = "sans", font.main = 2, font.lab = 1, font.axis = 1, lwdP=0.6, lwdC=0.1, trans=c(1,1),
 log=c(0,0), ndigits=0,   save="CSV", file1 = "Observed richness",
@@ -22,6 +22,7 @@ SpR<-FALSE
 
 if(jpg==FALSE) par(ask=ask) else yuret<-1
 
+colscale<-append("transparent",colscale)
 
 #####Checking data required
 if(exists("adworld")==FALSE){
@@ -456,6 +457,68 @@ if(elements==0) datosx<-datosx else datosx<-datosx[,-c(1,2)]
 
 dimy<-dim(datosx)
 
+if(is.null(dimy)){
+dimy[2]<-1
+dimy[1]<-length(datosx)
+Lo1<-subset(datosL[,1], !duplicated(datosL[,1]))
+La1<-subset(datosL[,2], !duplicated(datosL[,2]))
+Longitude<-mean(Lo1)
+Latitude<-mean(La1)
+com<-NA
+cu3<-NA
+cu2<-NA
+sp3<-NA
+sp2<-NA
+slope<-NA
+serandom<-NA;seexact<-NA; R2exact<-NA; R2random<-NA
+
+if(estimator==0){
+ratio<-dimy[1]/dimy[2]
+temp4<-c(Longitude, Latitude, dimy[1],dimy[2],cu3,cu2,sp3,sp2,slope,com, ratio)
+values3<-rbind(values3,temp4)
+setemp4<-c(Longitude, Latitude, dimy[1],dimy[2],seexact,serandom,R2exact,R2random)
+sevalues3<-rbind(sevalues3,setemp4)
+}
+
+if(estimator==1){
+ratio<-dimy[1]/dimy[2]
+temp4<-c(Longitude, Latitude, dimy[1],dimy[2],cu3,sp3,com, ratio)
+values3<-rbind(values3,temp4)
+setemp4<-c(Longitude, Latitude, dimy[1],dimy[2],seexact,R2exact)
+sevalues3<-rbind(sevalues3,setemp4)
+}
+
+if(estimator==2){
+ratio<-dimy[1]/dimy[2]
+temp4<-c(Longitude, Latitude, dimy[1],dimy[2],cu2,sp2,com, ratio)
+values3<-rbind(values3,temp4)
+setemp4<-c(Longitude, Latitude, dimy[1],dimy[2],serandom,R2random)
+sevalues3<-rbind(sevalues3,setemp4)
+}
+
+values<-values3[-1,]
+sevalues<-sevalues3[-1,]
+
+if(estimator==0){
+colnames(values)<-c("Longitude", "Latitude", "Records","Observed.richness", "Richness.exact", "Richness.random", "Slope.exact", "Slope.random", "Mean.slope", "Completeness", "Ratio")
+colnames(sevalues)<-c("Longitude", "Latitude", "Records","Observed.richenss", "SE.exact", "SE.random","R2.exact","R2.random")
+}
+
+if(estimator==1){
+colnames(values)<-c("Longitude", "Latitude", "Records","Observed.richness","Richness", "Slope","Completeness","Ratio")
+colnames(sevalues)<-c("Longitude", "Latitude", "Records","Observed.richness","SE","R2")
+}
+
+if(estimator==2){
+colnames(values)<-c("Longitude", "Latitude", "Records","Observed.richness","Richness", "Slope", "Completeness","Ratio")
+colnames(sevalues)<-c("Longitude", "Latitude", "Records","Observed.richness","SE","R2")
+}
+
+
+
+}
+
+
 
 dimy[is.null(dimy)] <- 0
 
@@ -465,6 +528,8 @@ cut<-sum(datosx, na.rm=TRUE)/dimy[2]
 else{
 cut<-dimy[1]/dimy[2]
 }
+
+
 
 
 
@@ -1016,7 +1081,13 @@ if(qw==4) ZZ[2,2]<-main4 else hjjuy<-1
 
 write.table(ZZ,"Inf.txt", row.names=FALSE,col.names=FALSE)
 
-
+if(any(varscale[-1,-1]!=-9999)==FALSE){
+ZZ[1,1]<-end.times
+ZZ[2,1]<-"This map is not depicted because it was not possible to estimate this estimator in any of the cells (see the file Estimators)"
+ZZ[2,2]<-""
+write.table(ZZ,"Inf.txt", row.names=FALSE,col.names=FALSE)
+}
+else{
 
 if (AA=="World"){
 if (missing(minLat)) minLat<--90 else minLat<-minLat
@@ -1368,6 +1439,8 @@ par(tmp)
 if(jpg==TRUE) dev.off() else hhjk<-1
 }
 
+
+}#End Warning
 
 
 ObservedRichness<-matriz1

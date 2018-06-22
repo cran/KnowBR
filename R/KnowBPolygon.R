@@ -1,8 +1,8 @@
 KnowBPolygon<-function(data,  format="A", shape=NULL, shapenames=NULL, admAreas=FALSE, Area="World", curve= "Rational", estimator=1,
 cutoff=1, cutoffCompleteness= 0, cutoffSlope= 1,  extent=TRUE, minLon, maxLon, minLat, maxLat, int=30,
 colbg="#FFFFFF", colcon="#C8C8C8", colf="black", pro = TRUE, inc = 0.005, exclude = NULL,
-colexc = NULL, colfexc="black", colscale=rev(heat.colors(100)), legend.pos="y",
-breaks=10, xl=0, xr=0, yb=0, yt=0, asp, lab = NULL, xlab = "Longitude", ylab = "Latitude", main1="Records",
+colexc = NULL, colfexc="black", colscale=c("#C8FFFFFF","#64FFFFFF","#00FFFFFF","#64FF64FF","#C8FF00FF","#FFFF00FF","#FFC800FF","#FF6400FF","#FF0000FF"),
+legend.pos="y", breaks=9, xl=0, xr=0, yb=0, yt=0, asp, lab = NULL, xlab = "Longitude", ylab = "Latitude", main1="Records",
 main2="Observed richness", main3="Completeness", main4="Slope", cex.main = 1.6, cex.lab = 1.4, cex.axis = 1.2, cex.legend=0.9,
 family = "sans", font.main = 2, font.lab = 1, font.axis = 1, lwdP=0.6, lwdC=0.1, trans=c(1,1),
  ndigits=0,  save="CSV", file1 = "Species per site", file2 = "Estimators",
@@ -342,6 +342,8 @@ log<-mgcv::in.out(as.matrix(pp),as.matrix(tableR[, c(2,3)]))
 }
 
 
+
+
 if(any(log==TRUE)==TRUE){
 
 if(format=="B"){
@@ -492,6 +494,7 @@ R2random<-1-var(res1, na.rm=T)/var(datosc[,1], na.rm=T)
 }#estimator 0 and 2
 
 
+
 if(estimator==0 | estimator==1){
 
 
@@ -603,11 +606,21 @@ pred<-Methods
 
 dimy<-dim(mm)
 
+
+if(is.null(dimy)){
+dimy[2]<-1
+records<-length(mm)
+}
+else{
+records<-dimy[1]
+}
+
+
+
 com<-(dimy[2]*100/pred)
 
 pred<-round(pred)
 
-records<-dimy[1]
 
 residuals<-dimy[2]-pred
 
@@ -799,7 +812,7 @@ estimators<-na.exclude(estimators)
 AreasS<-as.character(unique(estimators[,1]))
 
 if(length(AreasS)<=1){
-stop("Maps are not depicted because there is only one polygon with information about completeness (see the file Estimators)")
+stop("Maps are not depicted because there are less than two polygons with information about completeness (see the file Estimators)")
 }
 
 
@@ -1080,7 +1093,7 @@ tmp<-squishplot(xlim=c(minLon,maxLon), ylim=c(minLat,maxLat), asp=aspe)
 if(min(variable)==0) ini<-(-0.00001) else ini<-legend.min
 
 
-legend.freq1=abs((legend.max-ini)/(length(colscale)-1))
+legend.freq1=abs((legend.max-ini)/(length(colscale)))
 legend.freq=abs((legend.max-ini)/(breaks-1))
 
 
@@ -1164,7 +1177,7 @@ if(legend.max<0) legend.max<-legend.max-legend.max*0.1/100 else legend.max<-lege
 
 
 plotrix::color.legend(xl=x1, yb=minLat, xr= x2,
-yt=maxLat, sequ, gradient="y", align="rb", cex=cex.legend, rect.col=colscale[-1])
+yt=maxLat, sequ, gradient="y", align="rb", cex=cex.legend, rect.col=colscale)
 }
 else{
 if (yb==0){
@@ -1192,7 +1205,7 @@ sequ<-round(sequ, digits=ndigits)
 }
 
 plotrix::color.legend(xl=minLon, yb=y1, xr=maxLon, yt=y2, sequ,
-gradient="x", align="lt", cex=cex.legend, rect.col=colscale[-1])
+gradient="x", align="lt", cex=cex.legend, rect.col=colscale)
 }
 
 

@@ -5,13 +5,13 @@
 \usage{
 MapPolygon(data, polygonname, var, shape=NULL, shapenames=NULL, admAreas=TRUE,
 Area="World", minLon, maxLon, minLat, maxLat, int=30, colbg="#FFFFFF",
-colcon="#C8C8C8", colf="black", pro=TRUE, inc=0.005, exclude=NULL,
-colexc=NULL, colfexc="black", colscale=rev(heat.colors(100)), colm="black",
-legend.pos="y", breaks=10, xl=0, xr=0, yb=0, yt=0, asp, lab=NULL, xlab="Longitude",
-ylab="Latitude", main=NULL, cex.main=1.6, cex.lab=1.4, cex.axis=1.2,
-cex.legend=0.9, family="sans", font.main=2, font.lab=1, font.axis=1,
-lwdP=0.6, lwdC=0.1, trans=c(1,1), log=c(0,0), ndigits=0, ini=NULL,
-end=NULL, jpg=FALSE, filejpg="Map.jpg")}
+colcon="#C8C8C8", colf="black", pro=TRUE, inc=0.005, exclude=NULL, colexc=NULL,
+colfexc="black", colscale=c("#C8FFFFFF","#64FFFFFF","#00FFFFFF","#64FF64FF",
+"#C8FF00FF","#FFFF00FF","#FFC800FF","#FF6400FF","#FF0000FF"), colm="black",
+legend.pos="y", breaks=9, xl=0, xr=0, yb=0, yt=0, asp, lab=NULL, xlab="Longitude",
+ylab="Latitude", main=NULL, cex.main=1.6, cex.lab=1.4, cex.axis=1.2, cex.legend=0.9,
+family="sans", font.main=2, font.lab=1, font.axis=1, lwdP=0.6, lwdC=0.1,
+trans=c(1,1), log=c(0,0), ndigits=0, ini=NULL, end=NULL, jpg=FALSE, filejpg="Map.jpg")}
 \arguments{
   \item{data}{Data file exported by the function \link[KnowBR]{KnowBPolygon} named "Estimators" with the values of records, observed richness, predicted richness, completeness and slope for each area polygon.}
   \item{polygonname}{A variable available in the data file with the names of the polygons.}
@@ -83,7 +83,8 @@ Lemon, J., Bolker, B., Oom, S., Klein, E., Rowlingson, B., Wickham, H., Tyagi, A
 
 data(Estimators)
 data(adworld)
-MapPolygon(data=Estimators, polygonname="Area", var="Completeness", jpg=TRUE)
+MapPolygon(data=Estimators, polygonname="Area", var="Completeness",
+colscale=rev(heat.colors(100)), jpg=TRUE)
 
 }
 }

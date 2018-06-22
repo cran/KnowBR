@@ -5,12 +5,12 @@
 \usage{
 MapCell(data, Area="World", minLon, maxLon, minLat, maxLat, colbg="#FFFFFF",
 colcon="#C8C8C8", colf="black", pro=TRUE, inc=0.005, exclude=NULL,
-colexc=NULL, colfexc="black", colscale=rev(heat.colors(100)), legend.pos="y",
-breaks=10, xl=0, xr=0, yb=0, yt=0, asp, lab=NULL, xlab="Longitude",
-ylab="Latitude", main=NULL, cex.main=1.2, cex.lab=1, cex.axis=0.9,
-cex.legend=0.9, family="sans", font.main=2, font.lab=1, font.axis=1,
-lwdP=0.6, lwdC=0.1, trans=c(1,1), log=c(0,0), ndigits=0, ini=NULL,
-end=NULL, jpg=FALSE, filejpg="Map.jpg")
+colexc=NULL, colfexc="black", colscale=c("#C8FFFFFF","#64FFFFFF","#00FFFFFF","#64FF64FF",
+"#C8FF00FF","#FFFF00FF","#FFC800FF","#FF6400FF","#FF0000FF"),
+legend.pos="y", breaks=9, xl=0, xr=0, yb=0, yt=0, asp, lab=NULL, xlab="Longitude",
+ylab="Latitude", main=NULL,cex.main=1.2, cex.lab=1, cex.axis=0.9, cex.legend=0.9,
+family="sans", font.main=2, font.lab=1, font.axis=1, lwdP=0.6, lwdC=0.1, trans=c(1,1),
+log=c(0,0), ndigits=0, ini=NULL, end=NULL, jpg=FALSE, filejpg="Map.jpg")
 }
 \arguments{
   \item{data}{A CSV or RData file exported by the function \link[KnowBR]{KnowB} (see details) or an ESRI ASCII raster file with the variable (richness, records, etc.).}

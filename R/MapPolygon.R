@@ -1,5 +1,5 @@
 MapPolygon<-function(data, polygonname, var,  shape=NULL, shapenames=NULL, admAreas=TRUE, Area="World", minLon, maxLon, minLat, maxLat, int=30,  colbg="#FFFFFF",
-colcon="#C8C8C8", colf="black", pro = TRUE, inc = 0.005, exclude = NULL, colexc = NULL, colfexc="black", colscale=rev(heat.colors(100)), colm="black", legend.pos="y", breaks=10, xl=0,
+colcon="#C8C8C8", colf="black", pro = TRUE, inc = 0.005, exclude = NULL, colexc = NULL, colfexc="black", colscale=c("#C8FFFFFF","#64FFFFFF","#00FFFFFF","#64FF64FF","#C8FF00FF","#FFFF00FF","#FFC800FF","#FF6400FF","#FF0000FF"), colm="black", legend.pos="y", breaks=9, xl=0,
 xr=0, yb=0, yt=0,  asp, lab = NULL,  xlab = "Longitude", ylab = "Latitude", main=NULL,
 cex.main = 1.6,  cex.lab = 1.4, cex.axis = 1.2, cex.legend=0.9, family = "sans", font.main = 2,   font.lab = 1, font.axis = 1, lwdP=0.6, lwdC=0.1, trans=c(1,1), log=c(0,0),
 ndigits=0, ini=NULL, end=NULL,   jpg=FALSE, filejpg="Map.jpg"){
@@ -214,7 +214,7 @@ else{
 ini<-ini
 }
 
-legend.freq1=abs((legend.max-ini)/(length(colscale)-1))
+legend.freq1=abs((legend.max-ini)/(length(colscale)))
 legend.freq=abs((legend.max-ini)/(breaks-1))
 
 
@@ -303,7 +303,7 @@ sequ[lensequ]<-codlegend
 }
 
 plotrix::color.legend(xl=x1, yb=minLat, xr= x2,
-yt=maxLat, sequ, gradient="y", align="rb", cex=cex.legend, rect.col=colscale[-1])
+yt=maxLat, sequ, gradient="y", align="rb", cex=cex.legend, rect.col=colscale)
 }
 else{
 if (yb==0){
@@ -335,7 +335,7 @@ sequ[lensequ]<-codlegend
 }
 
 plotrix::color.legend(xl=minLon, yb=y1, xr=maxLon, yt=y2, sequ,
-gradient="x", align="lt", cex=cex.legend, rect.col=colscale[-1])
+gradient="x", align="lt", cex=cex.legend, rect.col=colscale)
 }
 
 
@@ -450,7 +450,7 @@ else{
 ini<-ini
 }
 
-legend.freq1=abs((legend.max-ini)/(length(colscale)-1))
+legend.freq1=abs((legend.max-ini)/(length(colscale)))
 legend.freq=abs((legend.max-ini)/(breaks-1))
 
 
@@ -536,7 +536,7 @@ sequ[lensequ]<-codlegend
 }
 if(length(colscale)>1){
 plotrix::color.legend(xl=x1, yb=minLat, xr= x2,
-yt=maxLat, sequ, gradient="y", align="rb", cex=cex.legend, rect.col=colscale[-1])
+yt=maxLat, sequ, gradient="y", align="rb", cex=cex.legend, rect.col=colscale)
 }
 }
 else{
@@ -569,7 +569,7 @@ sequ[lensequ]<-codlegend
 }
 if(length(colscale)>1){
 plotrix::color.legend(xl=minLon, yb=y1, xr=maxLon, yt=y2, sequ,
-gradient="x", align="lt", cex=cex.legend, rect.col=colscale[-1])
+gradient="x", align="lt", cex=cex.legend, rect.col=colscale)
 }
 }
 

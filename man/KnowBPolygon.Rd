@@ -5,10 +5,11 @@
 \usage{
 KnowBPolygon(data, format="A", shape=NULL, shapenames=NULL, admAreas=FALSE,
 Area="World", curve="Rational", estimator=1, cutoff=1, cutoffCompleteness=0,
-cutoffSlope=1, extent=TRUE, minLon, maxLon, minLat, maxLat, int=30,
-colbg="#FFFFFF", colcon="#C8C8C8", colf="black", pro = TRUE, inc=0.005,
-exclude=NULL, colexc=NULL, colfexc="black", colscale=rev(heat.colors(100)),
-legend.pos="y", breaks=10, xl=0, xr=0, yb=0, yt=0, asp, lab=NULL,
+cutoffSlope=1, extent=TRUE, minLon, maxLon, minLat, maxLat, int=30, colbg="#FFFFFF",
+colcon="#C8C8C8", colf="black", pro = TRUE, inc=0.005, exclude=NULL, colexc=NULL,
+colfexc="black", colscale=c("#C8FFFFFF","#64FFFFFF",
+"#00FFFFFF","#64FF64FF","#C8FF00FF","#FFFF00FF","#FFC800FF","#FF6400FF","#FF0000FF"),
+legend.pos="y", breaks=9, xl=0, xr=0, yb=0, yt=0, asp, lab=NULL,
 xlab="Longitude", ylab="Latitude", main1="Records", main2="Observed richness",
 main3="Completeness", main4="Slope", cex.main=1.6, cex.lab=1.4, cex.axis=1.2,
 cex.legend=0.9, family="sans", font.main=2, font.lab=1, font.axis=1,
@@ -186,7 +187,7 @@ records<-cbind(records,Counts)
 data(States) #State Boundaries of the United States
 data(adworld)
 KnowBPolygon(data=records, shape=States, admAreas=TRUE, shapenames="NAME", minLon=-130,
-maxLon=-70, minLat=25, maxLat=50, jpg=FALSE)
+maxLon=-70, minLat=25, maxLat=50, colscale=rev(heat.colors(100)), jpg=FALSE)
 }
 }
 \keyword{KnowBPolygon}
