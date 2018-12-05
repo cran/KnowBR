@@ -68,7 +68,8 @@ The function \link[plotrix]{color.legend} of the package plotrix (Lemon et al., 
 
 Completeness of the records of freshwater fish species in all countries of the world.
 \tabular{c}{
-\figure{F5}{options: width=5in}
+\if{html}{\figure{F5.jpg}{options: width=5in}}
+\if{latex}{\figure{F5.jpg}{options: width=5in}}
 }
 
 }

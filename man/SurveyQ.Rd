@@ -76,15 +76,18 @@ Degrees to radians angle conversion is carried out assuming that 1 degree = pi/1
 \strong{EXAMPLES}
 Polar coordinates of the records of freshwater fish species in all countries of the world.
 \tabular{c}{
-\figure{F6}{options: width=5.0in}
+\if{html}{\figure{F6.jpg}{options: width=5.0in}}
+\if{latex}{\figure{F6.jpg}{options: width=5.0in}}
 }
 Quality survey of the records of freshwater fish species in all countries of the world.
 \tabular{c}{
-\figure{F7}{options: width=5.5in}
+\if{html}{\figure{F7.jpg}{options: width=5.5in}}
+\if{latex}{\figure{F7.jpg}{options: width=5.5in}}
 }
 Bubble chart of the relationship between log(Ratio) and completeness, being the color gradient the slope value.
 \tabular{c}{
-\figure{F8}{options: width=4in}
+\if{html}{\figure{F8.jpg}{options: width=4in}}
+\if{latex}{\figure{F8.jpg}{options: width=4in}}
 }
 }
 \references{

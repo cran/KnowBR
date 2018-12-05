@@ -101,11 +101,16 @@ The polygons are depicted with the function \link[sp]{spplot} of the package sp 
 
 \strong{Example 1.} The database of the example includes 15,142 records for the 54 Iberian species of the Scarabaeidae (Coleoptera) previously compiled in the so called BANDASCA database (Lobo & Martín-Piera, 2002). The following maps show the records obtained in provinces of Spain using the estimator exact and the Rational function to adjust the data. 
 \tabular{c}{
-\figure{F3}{options: width=5.0in}\cr
+\if{html}{\figure{F3.jpg}{options: width=5.0in}}
+\if{latex}{\figure{F3.jpg}{options: width=5.0in}}
+\cr
 }
 \strong{Example 2.} An example using an external shape uploaded by the user (in this case the states of USA). The dataset are the records downloaded from GBIF of the flowering plants of the family Polygonaceae.The states with a grey background had no records, species and/or it was not possible to estimate the slope and/or completeness.
 \tabular{c}{
-\figure{F4}{options: width=4.5in}\cr
+\if{html}{\figure{F4.jpg}{options: width=4.5in}}
+\if{latex}{\figure{F4.jpg}{options: width=4.5in}}
+
+\cr
 }
 
 }
