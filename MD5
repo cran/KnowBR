@@ -1,4 +1,4 @@
-bdf76f93d26a80b18868afa1ffd03637 *DESCRIPTION
+48364df03a96a3f3813fe7ef07028d00 *DESCRIPTION
 137861813df8066bd47c5623010e468d *NAMESPACE
 e1f2c1212faabc92fd6f31d0fecbe2f0 *R/KnowB.R
 9a56b8a6969fb6f94d6b6de4c3d8dfa1 *R/KnowBPolygon.R
@@ -9,7 +9,7 @@ d55771ad049b86c6ffcef38887b0339a *data/Beetles.RData
 6183b15870edb10db29ff926d3b6710e *data/Estimators.RData
 3831572bc4a3a68e79f083906c5ce05f *data/RFishes.RData
 f748a902acd922fa2e353ad05aa6eae3 *data/States.RData
-83ef7d041c5650bac89cba79359f3434 *data/adworld.RData
+327d4b377f3a0edd1981eb3352d709a7 *data/adworld.RData
 487ae3ac27f08792656d835aa78ff165 *data/datalist
 3bdbb93a8f02dd6638fb2ac838bfac69 *inst/CITATION
 f034e136136b2835372ed4003150176f *man/Beetles.Rd

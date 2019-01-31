@@ -1,5 +1,5 @@
 Package: KnowBR
-Version: 1.9
+Version: 2.0
 Title: Discriminating Well Surveyed Spatial Units from Exhaustive
         Biodiversity Databases
 Author: Cástor Guisande González and Jorge M. Lobo
@@ -10,6 +10,6 @@ Encoding: latin1
 Depends: R (>= 3.0), fossil, mgcv, plotrix, sp, vegan
 Suggests: raster, rgbif
 NeedsCompilation: no
-Packaged: 2018-12-05 21:19:02 UTC; castor
+Packaged: 2019-01-30 13:27:29 UTC; castor
 Repository: CRAN
-Date/Publication: 2018-12-05 23:00:06 UTC
+Date/Publication: 2019-01-31 20:53:50 UTC
