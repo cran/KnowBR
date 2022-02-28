@@ -39,7 +39,7 @@ jpg4="Slope.jpg",cex=1.5, pch=15, cex.labels=1.5, pchcol="red", ask=FALSE)
 \arguments{
   \item{data}{The data is introduced as a CSV, TXT or RData file following two simple formats: one in which only four columns are included (see format A; species name, longitude, latitude and a number reflecting the incidence of the species) and another one including the longitude and latitude of each spatial unit and as many columns as species (see format B in the following table). The CSV file with the format A may be obtained using ModestR (see details).
 \tabular{c}{
-\if{html}{\figure{F1.jpg}{options: width=5.3in}}
+\if{html}{\figure{F1.jpg}{options: width="50"}}
 \if{latex}{\figure{F1.jpg}{options: width=5.3in}}
 }
 The primary matrix used in \emph{KnowBR} has a special characteristic - it must be derived from an exhaustive database including all the available georeferenced information including even those apparently redundant records of a species from the same locality provided that is a difference in some of the collection conditions for a species at a locality (i.e. date of capture, food source, collector, type of microhabitat, etc.). Thus, any difference in any database field value yields a new database record regardless of the number of individuals (see for example Lobo & Martín-Piera, 2002). As biodiversity data can derive from heterogeneous sources with different collector methodologies, no universal sampling effort measure capable of offering  reliable comparisons exists and the number of database records is used as a surrogate (see Soberón \emph{et al}., 2007; Lobo, 2008). This approach is particularly appropriate for poorly surveyed groups and/or regions lacking sufficient information to correct unequal sampling efforts arising from standardized survey protocols.}
@@ -156,8 +156,8 @@ The color legend of the maps is depicted with the function \link[plotrix]{color.
 
 The database of the example includes 15,142 records for the 54 Iberian species of the Scarabaeidae (Coleoptera) previously compiled in the so called BANDASCA database (Lobo & Martín-Piera, 2002). The following map show the slopes obtained in cells of 60ºx 60º using the estimator exact and the Rational's curve.
 \tabular{c}{
-\if{html}{\figure{F2.jpg}{options: width=5.0in}}
-\if{latex}{\figure{F2.jpg}{options: width=5.0in}}
+\if{html}{\figure{F2.jpg}{options: width="50"}}
+\if{latex}{\figure{F2.jpg}{options: width=4.3in}}
 \cr
 }
 The maps may be easily modified using the function \link[KnowBR]{MapCell} using the exported CSV or RData files detailing the observed species richness (with alias ObservedRichness), the records (with alias Records), the completeness (with alias Completeness) and the slope (with alias Slope).
@@ -211,6 +211,7 @@ Ugland, K.I., Gray J. S. & Ellingsen, K.E. 2003. The species-accumulation curve 
 
 }
 \examples{
+\dontrun{
 
 #Example 1. Default conditions using estimator 1 (method exact)
 #but only slopes lower than 0.1 are selected for depicting
@@ -222,8 +223,6 @@ Ugland, K.I., Gray J. S. & Ellingsen, K.E. 2003. The species-accumulation curve 
 data(adworld)
 data(Beetles)
 KnowB(data=Beetles, save="RData", jpg=FALSE, cutoffSlope=0.1, xl=6.1, xr=6.3)
-
-\dontrun{
 
 #Only to be used with RWizard. 
 #Example 2. Using @_Build_AdWorld_

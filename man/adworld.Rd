@@ -1,6 +1,7 @@
 \name{adworld}
 \docType{data}
 \alias{adworld}
+\encoding{latin1}
 \title{Geographical coordinates}
 \description{Latitude and longitude of all administrative areas.}
 \usage{data(adworld)}

@@ -137,7 +137,7 @@ codlegend<-paste(">",end)
 colors<- colorRampPalette(colscale)(int)
 
 # Attribute on shade to each shape
-if(class(variable)=="factor"){
+if(inherits(variable, "factor")){
 class<-cut(levels(variable)[variable], int)
 }
 else{
@@ -347,7 +347,7 @@ dev.off()
 
 
 if(!is.null(shape)){
-if(class(shape)=="list"){
+if(inherits(shape,"list")){
 dati<-shape[[1]]
 lsh<-length(shape)
 if(lsh>1){
@@ -358,14 +358,14 @@ datos<-eval(parse(text=paste("subset(dati,",noquote(shapenames), " %in% hh)", se
 }
 else{
 datos<-shape
-if(class(datos)=="character"){
+if(inherits(datos,"character")){
 datos<-eval(parse(text=paste(".GlobalEnv$", datos, sep="")))
 }
 }
 
 
 
-if(class(variable)=="factor"){
+if(inherits(variable,"factor")){
 variable<-as.numeric(levels(variable))[variable]
 }
  
@@ -384,7 +384,7 @@ codlegend<-paste(">",end)
 colors<- colorRampPalette(colscale)(int)
 
 # Attribute on shade to each shape
-if(class(variable)=="factor"){
+if(inherits(variable,"factor")){
 class<-cut(levels(variable)[variable], int)
 }
 else{

@@ -19,7 +19,7 @@ trans=c(1,1), log=c(0,0), ndigits=0, ini=NULL, end=NULL, jpg=FALSE, filejpg="Map
   \item{shape}{If the estimators in the function link[KnowBR]{KnowBPolygon} were calculated using an external shape file, it is necessary to indicate the file in this argument. It is not necessary to select any polygon within the file, just to load the whole shape file.}
   \item{shapenames}{Variable in the shapefile with the names of the polygons.}
   \item{admAreas}{If it is TRUE the border lines of the countries are depicted in the map.}
-  \item{Area}{Only if using RWizard (\url{http://www.ipez.es/RWizard}). A character with the name of the administrative area or a vector with several administrative areas (countries, regions, etc.) or river basins. If it is "World" (default) the entire world is plotted. For using administrative areas or river basins, in addition to use RWizard, it is also necessary to replace data(world) by @_Build_AdWorld_ (see examples).}
+  \item{Area}{Only if using RWizard. A character with the name of the administrative area or a vector with several administrative areas (countries, regions, etc.) or river basins. If it is "World" (default) the entire world is plotted. For using administrative areas or river basins, in addition to use RWizard, it is also necessary to replace data(world) by @_Build_AdWorld_ (see examples).}
   \item{minLon, maxLon}{Optionally it is possible to define the minimum and maximum longitude.}
   \item{minLat, maxLat}{Optionally it is possible to define the minimum and maximum latitude.}
   \item{int}{Number of intervals into which the variable is splited.}
@@ -68,7 +68,7 @@ The function \link[plotrix]{color.legend} of the package plotrix (Lemon et al., 
 
 Completeness of the records of freshwater fish species in all countries of the world.
 \tabular{c}{
-\if{html}{\figure{F5.jpg}{options: width=5in}}
+\if{html}{\figure{F5.jpg}{options: width="50"}}
 \if{latex}{\figure{F5.jpg}{options: width=5in}}
 }
 
@@ -80,13 +80,12 @@ Lemon, J. (2006) Plotrix: a package in the red light district of R. \emph{R-News
 Lemon, J., Bolker, B., Oom, S., Klein, E., Rowlingson, B., Wickham, H., Tyagi, A., Eterradossi, O., Grothendieck, G., Toews, M., Kane, J., Turner, R., Witthoft, C., Stander, J., Petzoldt, T., Duursma, R., Biancotto, E., Levy, O., Dutang, C., Solymos, P., Engelmann, R., Hecker, M., Steinbeck, F., Borchers, H., Singmann, H., Toal, T. & Ogle, D. (2015). Various plotting functions. R package version 3.6-1. Available at: https://CRAN.R-project.org/package=plotrix.
 }
 \examples{
-\dontrun{
+
 
 data(Estimators)
 data(adworld)
 MapPolygon(data=Estimators, polygonname="Area", var="Completeness",
-colscale=rev(heat.colors(100)), jpg=TRUE)
+colscale=rev(heat.colors(100)))
 
-}
 }
 \keyword{MapPolygon}

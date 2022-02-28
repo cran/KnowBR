@@ -14,7 +14,7 @@ log=c(0,0), ndigits=0, ini=NULL, end=NULL, jpg=FALSE, filejpg="Map.jpg")
 }
 \arguments{
   \item{data}{A CSV or RData file exported by the function \link[KnowBR]{KnowB} (see details) or an ESRI ASCII raster file with the variable (richness, records, etc.).}
-  \item{Area}{Only if using RWizard (\url{http://www.ipez.es/RWizard}). A character with the name of the administrative area or a vector with several administrative areas (countries, regions, etc.) or river basins. If it is "World" (default) the entire world is plotted. For using administrative areas or river basins, in addition to use RWizard, it is also necessary to replace data(adworld) by @_Build_AdWorld_ (see example 2).}
+  \item{Area}{Only if using RWizard. A character with the name of the administrative area or a vector with several administrative areas (countries, regions, etc.) or river basins. If it is "World" (default) the entire world is plotted. For using administrative areas or river basins, in addition to use RWizard, it is also necessary to replace data(adworld) by @_Build_AdWorld_ (see example 2).}
   \item{minLon, maxLon}{Optionally it is possible to define the minimum and maximum longitude.}
   \item{minLat, maxLat}{Optionally it is possible to define the minimum and maximum latitude.}
   \item{colbg}{Background color of the map (in some cases this is the sea).}
@@ -67,6 +67,7 @@ Lemon, J. (2006) Plotrix: a package in the red light district of R. \emph{R-News
 Lemon, J., Bolker, B., Oom, S., Klein, E., Rowlingson, B., Wickham, H., Tyagi, A., Eterradossi, O., Grothendieck, G., Toews, M., Kane, J., Turner, R., Witthoft, C., Stander, J., Petzoldt, T., Duursma, R., Biancotto, E., Levy, O., Dutang, C., Solymos, P., Engelmann, R., Hecker, M., Steinbeck, F., Borchers, H., Singmann, H., Toal, T. & Ogle, D. (2015). Various plotting functions. R package version 3.6-1. Available at: https://CRAN.R-project.org/package=plotrix.
 }
 \examples{
+
 \dontrun{
 
 #Example 1. Observed pecies richness of freshwater fishes around the world.
@@ -74,6 +75,8 @@ Lemon, J., Bolker, B., Oom, S., Klein, E., Rowlingson, B., Wickham, H., Tyagi, A
 data(RFishes)
 data(adworld)
 MapCell(data=RFishes, main= "Species richness of freshwater fishes")
+
+
 
 #Example 2. Only to be used with RWizard.
 

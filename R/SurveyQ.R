@@ -228,11 +228,11 @@ ylab = "Latitude", main=NULL, cex.main = 1.2, cex.lab = 1, cex.axis = 0.9, cex.l
 family = "sans", font.main = 2,  font.lab = 1, font.axis = 1, lwdP=0.6, lwdC=0.1,
 trans=c(1,1), log=c(0,0), ndigits=0, ini=NULL, end=NULL, jpg=FALSE, filejpg="Map.jpg"){
 
-if(class(data)=="data.frame"){
+if(inherits(data,"data.frame")){
 data<-as.matrix(data)
 }
 
-if(class(data)=="RasterLayer"){
+if(inherits(data, "RasterLayer")){
 
 if(round(raster::xmin(data))==-180 & round(raster::ymin(data))==-90 & round(raster::xmax(data))==180 & round(raster::ymax(data))==90){
 m1<-raster::as.matrix(data)
@@ -888,7 +888,7 @@ datosT<-ldata
 
 if(!is.null(shape)){
 
-if(class(shape)=="list"){
+if(inherits(shape, "list")){
 data<-shape[[1]]
 lsh<-length(shape)
 if(lsh>1){
@@ -899,7 +899,7 @@ shapeT<-eval(parse(text=paste("subset(data,",noquote(shapenames), " %in% hh)", s
 }
 else{
 shapeT<-shape
-if(class(shapeT)=="character"){
+if(inherits(shapeT, "character")){
 shapeT<-eval(parse(text=paste(".GlobalEnv$", shapeT, sep="")))
 }
 }

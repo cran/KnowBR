@@ -5,9 +5,9 @@ exportPattern(KnowB, KnowBPolygon, MapCell, MapPolygon, SurveyQ)
 
 importFrom(stats, na.exclude, aggregate, nls, sd, var, lm)
 
-importFrom(grDevices, dev.off, jpeg, heat.colors, colorRampPalette, dev.new, cm.colors, gray.colors, terrain.colors, topo.colors, rgb, colorRamp)
+importFrom(grDevices, dev.off, jpeg, heat.colors, colorRampPalette, dev.new, cm.colors, gray.colors, terrain.colors, topo.colors, rgb, colorRamp, chull)
 
-importFrom(graphics, axis, image, mtext, pairs, par, plot, polygon, rect, text, points)
+importFrom(graphics, axis, image, mtext, pairs, par, plot, polygon, rect, text, points, box, legend)
 
 importFrom(utils, read.csv, read.csv2, write.csv, write.csv2, write.table, read.table)
 

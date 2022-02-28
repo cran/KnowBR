@@ -26,7 +26,7 @@ na="NA", dec=",", row.names=FALSE, jpg=FALSE, filejpg="Map.jpg")
   \item{shape}{If the estimators in the function link[KnowBR]{KnowBPolygon} were calculated using an external shape file, it is necessary to indicate the file in this argument. It is not necessary to select any polygon within the file, just to load the whole shape file.}
   \item{shapenames}{Variable in the shapefile with the names of the polygons.}
   \item{admAreas}{If it is TRUE the border lines of the countries are depicted in the map.}
-  \item{Area}{Only if using RWizard (\url{http://www.ipez.es/RWizard}). A character with the name of the administrative area or a vector with several administrative areas (countries, regions, etc.) or river basins. If it is "World" (default) the entire world is plotted. For using administrative areas or river basins, in addition to use RWizard, it is also necessary to replace data(world) by @_Build_AdWorld_ (see examples of function \link[KnowBR]{KnowBPolygon}).}
+  \item{Area}{Only if using RWizard. A character with the name of the administrative area or a vector with several administrative areas (countries, regions, etc.) or river basins. If it is "World" (default) the entire world is plotted. For using administrative areas or river basins, in addition to use RWizard, it is also necessary to replace data(world) by @_Build_AdWorld_ (see examples of function \link[KnowBR]{KnowBPolygon}).}
 \item{minLon, maxLon}{Optionally it is possible to define the minimum and maximum longitude.}
   \item{minLat, maxLat}{Optionally it is possible to define the minimum and maximum latitude.}
   \item{main}{Main title of the map.}
@@ -76,17 +76,17 @@ Degrees to radians angle conversion is carried out assuming that 1 degree = pi/1
 \strong{EXAMPLES}
 Polar coordinates of the records of freshwater fish species in all countries of the world.
 \tabular{c}{
-\if{html}{\figure{F6.jpg}{options: width=5.0in}}
+\if{html}{\figure{F6.jpg}{options: width="50"}}
 \if{latex}{\figure{F6.jpg}{options: width=5.0in}}
 }
 Quality survey of the records of freshwater fish species in all countries of the world.
 \tabular{c}{
-\if{html}{\figure{F7.jpg}{options: width=5.5in}}
+\if{html}{\figure{F7.jpg}{options: width="50"}}
 \if{latex}{\figure{F7.jpg}{options: width=5.5in}}
 }
 Bubble chart of the relationship between log(Ratio) and completeness, being the color gradient the slope value.
 \tabular{c}{
-\if{html}{\figure{F8.jpg}{options: width=4in}}
+\if{html}{\figure{F8.jpg}{options: width="50"}}
 \if{latex}{\figure{F8.jpg}{options: width=4in}}
 }
 }
@@ -94,6 +94,7 @@ Bubble chart of the relationship between log(Ratio) and completeness, being the 
 Guisande, C., Manjarrés-Hernández, A., Pelayo-Villamil, P., Granado-Lorencio, C., Riveiro, I., Acuña, A., Prieto-Piraquive, E., Janeiro, E., Matías, J.M., Patti, C., Patti, B., Mazzola, S., Jiménez, S., Duque, V. & Salmerón, F. (2010) IPez: An expert system for the taxonomic identification of fishes based on machine learning techniques. \emph{Fisheries Research}, 102, 240-247.
 }
 \examples{
+
 \dontrun{
 
 data(adworld)

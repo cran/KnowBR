@@ -93,21 +93,19 @@ The estimators exact and random were estimated with the function \link[vegan]{sp
 
 The color legend of the maps is depicted with the function \link[plotrix]{color.legend} of the package plotrix (Lemon et al., 2014).
 
-Points inside the polygons are estimated with the function \link[splancs]{inpip} of the package splancs (Bivand et al., 2017).
-
 The polygons are depicted with the function \link[sp]{spplot} of the package sp (Edzer \emph{et al}. 2005; Bivand \emph{et al}., 2013; Pebesma \emph{et al}. 2017).
 
 \strong{EXAMPLE}
 
 \strong{Example 1.} The database of the example includes 15,142 records for the 54 Iberian species of the Scarabaeidae (Coleoptera) previously compiled in the so called BANDASCA database (Lobo & Martín-Piera, 2002). The following maps show the records obtained in provinces of Spain using the estimator exact and the Rational function to adjust the data. 
 \tabular{c}{
-\if{html}{\figure{F3.jpg}{options: width=5.0in}}
+\if{html}{\figure{F3.jpg}{options: width="50"}}
 \if{latex}{\figure{F3.jpg}{options: width=5.0in}}
 \cr
 }
 \strong{Example 2.} An example using an external shape uploaded by the user (in this case the states of USA). The dataset are the records downloaded from GBIF of the flowering plants of the family Polygonaceae.The states with a grey background had no records, species and/or it was not possible to estimate the slope and/or completeness.
 \tabular{c}{
-\if{html}{\figure{F4.jpg}{options: width=4.5in}}
+\if{html}{\figure{F4.jpg}{options: width="50"}}
 \if{latex}{\figure{F4.jpg}{options: width=4.5in}}
 
 \cr
@@ -124,8 +122,6 @@ JPG files with maps: 1)Records, 2) Observed richness, 3) Completeness and 4) Slo
 \source{Spatial database of the location of the world's administrative areas (or administrative boundaries) was obtained from the Web Site http://www.openstreet.org/.}
 \references{
 Bivand, R.S., Pebesma, E. & Gomez-Rubio, V. 2013. \emph{Applied spatial data analysis with R}. Springer, NY.
-
-Bivand, R.S.,Rowlingson, B., Diggle, P., Petris, G., & Eglen, S. 2017. Spatial and Space-Time Point Pattern Analysis. R package version 2.01-40. Available at: http://CRAN.R-project.org/package=splancs.
 
 Edzer J. Pebesma, E.J. & Bivand, R.S. 2005. Classes and methods for spatial data in R. \emph{R News}, 5: 9-13.
 

@@ -267,7 +267,7 @@ out<-as.matrix(out)
 }###End bucle internal shapes
 else{
 
-if(class(shape)=="list"){
+if(inherits(shape,"list")){
 data<-shape[[1]]
 lsh<-length(shape)
 if(lsh>1){
@@ -278,7 +278,7 @@ data<-eval(parse(text=paste("subset(data,",noquote(shapenames), " %in% hh)", sep
 }
 else{
 data<-shape
-if(class(data)=="character"){
+if(inherits(data, "character")){
 data<-eval(parse(text=paste(".GlobalEnv$", data, sep="")))
 }
 
@@ -358,7 +358,7 @@ mm<-mm[mm[,dhh[2]],]
 mm<-mm[,c(-1,-2,-dhh[2])]
 mm<-mm[, apply(mm, 2, sum)!=0]
 
-if(class(mm)=="integer"){
+if(inherits(mm, "integer")){
 dimtt<-length(mm)
 }
 else{
@@ -395,7 +395,7 @@ names(Lm)<-c("Longitude","Latitude",sp)
 
 mm<-Lm[,c(-1,-2)]
 
-if(class(mm)=="integer"){
+if(inherits(mm, "integer")){
 dimtt<-length(mm)
 }
 else{
@@ -919,14 +919,14 @@ write.table(ZZ,"Inf.txt", row.names=FALSE,col.names=FALSE)
 
 
 if(!is.null(shape)){
-if(class(var)=="character"){
+if(inherits(var, "character")){
 variable<-datos@data[,var]
 }
 else{
 variable<-var
 }
 
-if(class(variable)=="factor"){
+if(inherits(variable,"factor")){
 variable<-as.numeric(levels(variable))[variable]
 }
 }
@@ -991,7 +991,7 @@ if(!is.null(shape)){
 colors<- colorRampPalette(colscale)(int)
 
 # Attribute on shade to each shape
-if(class(variable)=="factor"){
+if(inherits(variable,"factor")){
 class<-cut(levels(variable)[variable], int)
 }
 else{
