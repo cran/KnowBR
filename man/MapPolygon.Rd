@@ -1,5 +1,6 @@
 \name{MapPolygon}
 \alias{MapPolygon}
+\encoding{latin1}
 \title{Choropleth maps}
 \description{It allows to shade the polygons in proportion to any of the variables (records richness, observed richess, predicted richness, completeness and the slope) exported by the function \link[KnowBR]{KnowBPolygon} in the file "Estimators".}
 \usage{

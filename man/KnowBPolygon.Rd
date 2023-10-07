@@ -1,5 +1,6 @@
 \name{KnowBPolygon}
 \alias{KnowBPolygon}
+\encoding{latin1}
 \title{Discriminating well surveyed polygon units from exhaustive biodiversity databases}
 \description{It is the same function than \link[KnowBR]{KnowB} but the estimation of the well surveyed units is on polygons instead of on cells.}
 \usage{
@@ -97,7 +98,7 @@ The polygons are depicted with the function \link[sp]{spplot} of the package sp 
 
 \strong{EXAMPLE}
 
-\strong{Example 1.} The database of the example includes 15,142 records for the 54 Iberian species of the Scarabaeidae (Coleoptera) previously compiled in the so called BANDASCA database (Lobo & Martín-Piera, 2002). The following maps show the records obtained in provinces of Spain using the estimator exact and the Rational function to adjust the data. 
+\strong{Example 1.} The database of the example includes 15,142 records for the 54 Iberian species of the Scarabaeidae (Coleoptera) previously compiled in the so called BANDASCA database (Lobo & MartÃ­n-Piera, 2002). The following maps show the records obtained in provinces of Spain using the estimator exact and the Rational function to adjust the data. 
 \tabular{c}{
 \if{html}{\figure{F3.jpg}{options: width="50"}}
 \if{latex}{\figure{F3.jpg}{options: width=5.0in}}
@@ -125,45 +126,21 @@ Bivand, R.S., Pebesma, E. & Gomez-Rubio, V. 2013. \emph{Applied spatial data ana
 
 Edzer J. Pebesma, E.J. & Bivand, R.S. 2005. Classes and methods for spatial data in R. \emph{R News}, 5: 9-13.
 
-Lobo, J.M. & Martín-Piera, F. 2002. Searching for a predictive model for Iberian dung beetle species richness based on spatial and environmental variables. \emph{Conservation Biology}, 16: 158-173.
+Lobo, J.M. & MartÃ­n-Piera, F. 2002. Searching for a predictive model for Iberian dung beetle species richness based on spatial and environmental variables. \emph{Conservation Biology}, 16: 158-173.
 
 Miller, R.I. & Wiegert, R.G. (1989) Documenting completeness species-area relations, and the species-abundance distribution of a regional flora. \emph{Ecology}, 70: 16-22.
 
-Monod, J. (1950) La technique de culture continue, théorie et applications. \emph{ Annales de l'Institut Pasteur (Paris)},  79: 390-410.
+Monod, J. (1950) La technique de culture continue, theorie et applications. \emph{ Annales de l'Institut Pasteur (Paris)},  79: 390-410.
 
 Oksanen, J., Blanchet, F.G., Kindt, R., Legendre, P., Minchin, P.R., O'Hara, R.B., Simpson, G.L., Solymos, P., Henry, M., Stevens, H. & Wagner, H. 2014. Community Ecology Package. R package version 2.0-10. Available at: https://CRAN.R-project.org/package=vegan.
 
 Pebesma, E., Bivand, R.S., Rowlingson, B., Gomez-Rubio, V., Hijmans, R., Sumner, M., MacQueen, D., Lemon, J. & O'Brien, J. 2017. Classes and Methods for Spatial Data. R package version 1.2-5. Available at: http://CRAN.R-project.org/package=sp.
 
-Soberón, J. & Llorente, B.J. 1993. The use of species accumulation functions for the prediction of species richness. \emph{Conservation Biology}, 7: 480-488.
+SoberÃ³n, J. & Llorente, B.J. 1993. The use of species accumulation functions for the prediction of species richness. \emph{Conservation Biology}, 7: 480-488.
 }
 \examples{
 
 \dontrun{
-
-#Example 1. Only to be used with RWizard
-
-data(Beetles)
-@_Build_AdWorld_
-KnowBPolygon(data = Beetles , Area = c("Andalucía>Almería", "Andalucía>Cádiz",
-"Andalucía>Córdoba", "Andalucía>Granada", "Andalucía>Huelva", "Andalucía>Jaén",
-"Andalucía>Málaga", "Andalucía>Sevilla", "Aragón>Huesca", "Aragón>Teruel",
-"Aragón>Zaragoza", "Cantabria>Cantabria", "Castilla y León>Ávila", "Castilla y León>Burgos",
-"Castilla y León>León", "Castilla y León>Palencia", "Castilla y León>Salamanca",
-"Castilla y León>Segovia", "Castilla y León>Soria", "Castilla y León>Valladolid",
-"Castilla y León>Zamora", "Castilla-La Mancha>Albacete", "Castilla-La Mancha>Ciudad Real",
-"Castilla-La Mancha>Cuenca", "Castilla-La Mancha>Guadalajara", "Castilla-La Mancha>Toledo",
-"Cataluña>Barcelona", "Cataluña>Girona", "Cataluña>Lleida", "Cataluña>Tarragona",
-"Ceuta>Ceuta", "Comunidad de Madrid>Madrid", "Comunidad Foral de Navarra>Navarra",
-"Comunidad Valenciana>Alicante", "Comunidad Valenciana>Castellón",
-"Comunidad Valenciana>Valencia", "Extremadura>Badajoz", "Extremadura>Cáceres",
-"Galicia>A Coruña", "Galicia>Lugo", "Galicia>Ourense", "Galicia>Pontevedra",
-"Islas Baleares>Baleares", "Islas Canarias>Las Palmas", "Islas Canarias>Santa Cruz de Tenerife",
-"La Rioja>La Rioja", "Melilla>Melilla", "País Vasco>Álava", "País Vasco>Guipúzcoa",
-"País Vasco>Vizcaya", "Principado de Asturias>Asturias", "Región de Murcia>Murcia") ,
-minLon = -10 , minLat = 35 , admAreas = TRUE , jpg = FALSE)
-
-#Example 2.
 
 #Download records from GBIF of the flowering plants of the family Polygonaceae
 

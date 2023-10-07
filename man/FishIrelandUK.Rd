@@ -1,5 +1,6 @@
 \name{FishIrelandUK}
 \docType{data}
+\encoding{latin1}
 \alias{FishIrelandUK}
 \title{Estimators obtained with the function KnowB}
 \usage{data(FishIrelandUK)}

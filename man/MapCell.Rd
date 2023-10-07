@@ -1,5 +1,6 @@
 \name{MapCell}
 \alias{MapCell}
+\encoding{latin1}
 \title{Cell maps}
 \description{It allows to depict on a map any of the variables  (records richness, observed richess, predicted richness, completeness and the slope) exported by the function \link[KnowBR]{KnowB} using a CSV, RData or raster file, and with the spatial resolution (cell size) specified in the file.}
 \usage{

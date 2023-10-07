@@ -1,5 +1,6 @@
 \name{SurveyQCZ}
 \alias{SurveyQCZ}
+\encoding{latin1}
 \title{Survey quality of climate zones}
 \description{Estimation of the survey quality of different climate zones.}
 \usage{
@@ -24,13 +25,13 @@ legpos="bottomleft", jpg=FALSE, filejpg="Survey Quality CZ.jpg", dec=",")
     \item{shape}{Optionally it may be used a shape file with the information of the polygons.}
   \item{shapenames}{Variable in the shapefile with the names of the polygons.}
   \item{aprox}{If it is TRUE and there is not environmental data available in the cell, it is used the nearest cell available in the environmental data set.}
-  \item{VIDTAXA}{It accesses the \link[VARSEDIG]{VIDTAXA} function of the VARSEDIG package.}
+  \item{VIDTAXA}{It accesses the VIDTAXA function of the VARSEDIG package.}
   \item{por}{Cut-off threshold specifying the cumulative variance percentage, to determine how many axes are selected from the Principal Components or Correspondence analyses. By default it is 80\%, which means that the axes are selected until reaching an accumulated variance percentage of 80\%.}
   \item{k}{Number of clusters in which the Dendrogram is divided. If it is NULL, the algorithm select automatically the maximum number of clusters in which the Dendrogram can be divided, which are those groups that are statistically different in at least one variable according to the U Mann-Whitney test. If the are is large, there may be many different climate zones, so with NULL option running time may be long.}
   \item{VIF}{If it is TRUE, the inflation factor of the variance (VIF) is used to select the highly correlated variables and, therefore, not correlated variables are excluded from the Principal Components analysis.}
-  \item{VARSEDIG}{If it is TRUE, the VARSEDIG algorithm of the \link[VARSEDIG]{VARSEDIG} function is performed.}
+  \item{VARSEDIG}{If it is TRUE, the VARSEDIG algorithm is performed.}
   \item{variables}{The slope, completeness and ratio obtained in the file "Estimators", in that order.}
-  \item{BUBBLE}{If it is TRUE, the BUBBLE plot the \link[VARSEDIG]{VARSEDIG} function is depicted.}
+  \item{BUBBLE}{If it is TRUE, the BUBBLE plot the VARSEDIG function is depicted.}
   \item{completeness}{Values of the completeness to define the thresholds for poor, fair and good quality surveys of the cells.}
   \item{slope}{Values of the slope to define the thresholds for poor, fair and good quality surveys of the cells.}
   \item{ratio}{Values of the ratio to define the thresholds for poor, fair and good quality surveys of the cells.}
@@ -97,7 +98,7 @@ It is obtained:
 
 }
 \details{
-The aim of this algorithm is to identify different climate zones and to estimate survey quality of these zones. The climate zones are classified from those with higher percentage of ignorance/poor survey quality cells (poor surveyed climate zones), to those with the lower percentage of ignorance/poor survey quality cells (better surveyed climate zones). This function uses the algorithm of the \link[VARSEDIG]{VIDTAXA} function of the VARSEDIG package (Guisande et al., 2016; 2019; Guisande, 2019, which is briefly summarized as follows.
+The aim of this algorithm is to identify different climate zones and to estimate survey quality of these zones. The climate zones are classified from those with higher percentage of ignorance/poor survey quality cells (poor surveyed climate zones), to those with the lower percentage of ignorance/poor survey quality cells (better surveyed climate zones). This function uses the algorithm of the VARSEDIG function (Guisande et al., 2016; 2019; Guisande, 2019, which is briefly summarized as follows.
 
 This function only works if there are ASC files with the environmental variables in the working directory.
 
@@ -115,7 +116,7 @@ Once the different climate zones have been identified, with the file Estimators.
 
 \strong{FUNCTIONS}
 
-This function uses the algorithm of the \link[VARSEDIG]{VIDTAXA} function of the VARSEDIG package (Guisande et al., 2016; 2019; Guisande, 2019). The Principal Components Analysis was performed with the \link[stats]{prcomp} function of the stats package. The \link[usdm]{vif} function of the usdm package was used for the calculation of VIF (Naimi et al., 2014; Naimi, 2017). To perform the \emph{biplot} graph the \link[car]{scatterplot} function of the car package was used (Fox et al., 2018). The arrows are depicted with the function \link[IDPmisc]{Arrows} of the package IDPmisc (Locher & Ruckstuhl, 2014). The convex hull is estimated with the function \link[grDevices]{chull} of the package grDevices. KMO test was performed with the function \link[psych]{KMO} of the package psych (Revelle, 2018). Bartlett's test sphericity was performed with the function \link[REdaS]{bart_spher} of the package REdaS (Maier, 2015). The U Mann-Whitney test is performed with the \emph{wilcox.test} function of the base stats package. The comparison between clusters with the VARSEDIG algorithm is done with the VARSEDIM function of the VARSEDIG package (Guisande et al., 2016: Guisande, 2018). The Linear Discriminant Analysis was performed with the functions \link[candisc]{candisc} of the candisc package (Friendly, 2007; Friendly & Fox, 2017) and \link[MASS]{lda} of the MASS package (Venables & Ripley, 2002; Ripley et al., 2018). The Quadratic Discriminant Analysis was performed with the function \link[MASS]{qda} of the MASS package (Venables & Ripley, 2002; Ripley et al., 2018). The graph with one dimension in the Discriminant analysis was performed with the function \link[candisc]{plot.cancor} of the candisc package (Friendly, 2007; Friendly & Fox, 2017).
+This function uses the algorithm of the VIDTAX function of the VARSEDIG package (Guisande et al., 2016; 2019). The Principal Components Analysis was performed with the \link[stats]{prcomp} function of the stats package. The \link[usdm]{vif} function of the usdm package was used for the calculation of VIF (Naimi et al., 2014; Naimi, 2017). To perform the \emph{biplot} graph the \link[car]{scatterplot} function of the car package was used (Fox et al., 2018). The arrows are depicted with the function \link[IDPmisc]{Arrows} of the package IDPmisc (Locher & Ruckstuhl, 2014). The convex hull is estimated with the function \link[grDevices]{chull} of the package grDevices. KMO test was performed with the function \link[psych]{KMO} of the package psych (Revelle, 2018).  The U Mann-Whitney test is performed with the \emph{wilcox.test} function of the base stats package. The comparison between clusters with the VARSEDIG algorithm is done with the VARSEDIG function  (Guisande et al., 2016). The Linear Discriminant Analysis was performed with the functions \link[candisc]{candisc} of the candisc package (Friendly, 2007; Friendly & Fox, 2017) and \link[MASS]{lda} of the MASS package (Venables & Ripley, 2002; Ripley et al., 2018). The Quadratic Discriminant Analysis was performed with the function \link[MASS]{qda} of the MASS package (Venables & Ripley, 2002; Ripley et al., 2018). The graph with one dimension in the Discriminant analysis was performed with the function \link[candisc]{plot.cancor} of the candisc package (Friendly, 2007; Friendly & Fox, 2017).
 
 \strong{EXAMPLE}
 
@@ -146,23 +147,19 @@ Friendly, M. & Fox, J. (2017) Visualizing Generalized Canonical Discriminant and
 
 Friendly, M. (2007). HE plots for Multivariate General Linear Models. \emph{Journal of Computational and Graphical Statistics}, 16: 421-444.
 
-Guisande, C. (2019) An Algorithm for Morphometric Characters Selection and Statistical Validation in Morphological Taxonomy. R package version 2.0. Available at: \url{https://CRAN.R-project.org/package=VARSEDIG}.
+Guisande, C., Vari, R.P., Heine, J., Garc√≠a-Rosell√≥, E., Gonz√°lez-Dacosta, J., P√©rez-Schofield, B.J., Gonz√°lez-Vilas, L. & Pelayo-Villamil, P. (2016) VARSEDIG: an algorithm for morphometric characters selection and statistical validation in morphological taxonomy. \emph{Zootaxa}, 4162: 571-580.
 
-Guisande, C., Vari, R.P., Heine, J., GarcÌa-RosellÛ, E., Gonz·lez-Dacosta, J., PÈrez-Schofield, B.J., Gonz·lez-Vilas, L. & Pelayo-Villamil, P. (2016) VARSEDIG: an algorithm for morphometric characters selection and statistical validation in morphological taxonomy. \emph{Zootaxa}, 4162: 571-580.
-
-Guisande, C., Rueda-Quecho, A.J., Rangel-Silva, F.A., Heine, J., GarcÌa-RosellÛ, E., Gonz·lez-Dacosta, J. & Pelayo-Villamil, P. (2019) VIDTAXA: an algorithm for the identification of statistically different groups based on variability obtained in factorial analyses. \emph{Ecological Informatics}, 46: 62-68.
+Guisande, C., Rueda-Quecho, A.J., Rangel-Silva, F.A., Heine, J., Garc√≠a-Rosell√≥, E., Gonz√°lez-Dacosta, J. & Pelayo-Villamil, P. (2019) VIDTAXA: an algorithm for the identification of statistically different groups based on variability obtained in factorial analyses. \emph{Ecological Informatics}, 46: 62-68.
 
 Hijmans, R.J., Cameron, S.E., Parra, J.L., Jones, P.G. & Jarvis, A. (2005) Very high resolution interpolated climate surfaces for global land areas. \emph{International Journal of Climatology}, 25: 1965-1978.
 
 Locher, R. & Ruckstuhl, A. (2014) Utilities of Institute of Data Analyses and Process Design. R package version 1.1.17. Available at: \url{https://CRAN.R-project.org/package=IDPmisc}.
 
-Maier, M.J. (2015) Companion Package to the Book 'R: Einfuehrung durch angewandte Statistik. R package version 0.9.3. Available at: \url{https://CRAN.R-project.org/package=REdaS}.
-
 Naimi, B. (2017) Uncertainty analysis for species distribution models. R package version 1.1-18. Available at: \url{https://CRAN.R-project.org/package=usdm}.
 
 Naimi, B., Hamm, N.A.S., Groen, T.A., Skidmore, A.K., & Toxopeus, A.G. (2014) Where is positional uncertainty a problem for species distribution modelling? \emph{Ecography}, 37: 191-203.
 
-Pelayo-Villamil, P., Guisande, C., Vari, R.P., ManjarrÈs-Hern·ndez, A., GarcÌa-RosellÛ, E., Gonz·lez-Dacosta, J., Heine, J., Gonz·lez-Vilas, L., Patti, B., Quinci, E.M., JimÈnez, L.F., Granado-Lorencio, C., Tedesco, P.A., Lobo, J.M. (2015) Global diversity patterns of freshwater fishes-Potential victims of their own success. \emph{Diversity and Distributions}, 21: 345-356.
+Pelayo-Villamil, P., Guisande, C., Vari, R.P., Manjarr√©s-Hern√°ndez, A., Garc√≠a-Rosell√≥, E., Gonz√°lez-Dacosta, J., Heine, J., Gonz√°lez-Vilas, L., Patti, B., Quinci, E.M., Jim√©nez, L.F., Granado-Lorencio, C., Tedesco, P.A., Lobo, J.M. (2015) Global diversity patterns of freshwater fishes-Potential victims of their own success. \emph{Diversity and Distributions}, 21: 345-356.
 
 Revelle,W. (2018) Procedures for Psychological, Psychometric, and Personality Research. R package version 1.8.4. Available at: \url{https://CRAN.R-project.org/package=psych}.
 

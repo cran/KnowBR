@@ -1,5 +1,6 @@
 \name{KnowB}
 \alias{KnowB}
+\encoding{latin1}
 \title{Discriminating well surveyed cell units from exhaustive biodiversity databases}
 \description{
 Advances during the last decades in information technology allow us to store, retrieve, transmit and manipulate an unprecedented magnitude of massive information about species distributions (Guralnick \emph{et al}., 2007). Unfortunately, this compilation process suffers from three main shortcomings:

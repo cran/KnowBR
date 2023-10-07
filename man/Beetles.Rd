@@ -1,5 +1,6 @@
 \name{Beetles}
 \docType{data}
+\encoding{latin1}
 \alias{Beetles}
 \title{Individual counts of species of beetles}
 \description{This database includes 15,142 records belonging to 54 Iberian species of the Scarabaeidae (Coleoptera) previously compiled in the so called BANDASCA database (Lobo & Martín-Piera, 2002) also freely available in GBIF (\url{https://www.gbif.org/}). Individual counts, longitude and latitude of species occurrences of the family Scarabaeidae in the Iberian Peninsula are provided.}
